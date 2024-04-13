@@ -1,0 +1,15 @@
+Package: iccat.pub.data
+Type: Package
+Title: TBD
+Version: 0.1.0
+Author: ICCAT Secretariat
+Maintainer: Fabio Fiorellato <fabio.fiorellato@iccat.int>
+Description: TBD
+    TBD.
+License: TBD
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    data.table,
+    R (>= 2.10)
+RoxygenNote: 7.3.1
