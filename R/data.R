@@ -3,6 +3,20 @@
 #' @format
 #' \describe{
 #'   \item{CODE}{The species code}
+#'   \item{SCIENTIFIC_NAME}{The species scientific name}
+#'   \item{NAME_EN}{The species English name}
+#'   \item{NAME_ES}{The species Spanish name}
+#'   \item{NAME_FR}{The species French name}
+#'   \item{SPECIES_GROUP}{The species group}
+#' }
+#' @export
+"REF_SPECIES"
+
+#' The reference species metadata
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The species code}
 #'   \item{NAME_EN}{The species English name}
 #'   \item{NAME_ES}{The species Spanish name}
 #'   \item{NAME_FR}{The species French name}
@@ -10,7 +24,7 @@
 #'   \item{SPECIES_GROUP_CODE}{The species group code}
 #' }
 #' @export
-"REF_SPECIES"
+"REF_SPECIES_META"
 
 #' The reference stock areas
 #'
@@ -21,6 +35,19 @@
 #' }
 #' @export
 "REF_STOCK_AREAS"
+
+#' The reference stock metadata
+#'
+#' @format
+#' \describe{
+#'   \item{SPECIES_CODE}{The species code}
+#'   \item{SPECIES_GROUP}{The species group}
+#'   \item{STOCK_CODE}{The stock code}
+#'   \item{STATISTICAL_AREA_CODE}{The statistical area code}
+#'   \item{SAMPLING_AREA_CODE}{The sampling area code}
+#' }
+#' @export
+"REF_STOCKS"
 
 #' The reference gear groups
 #'
