@@ -1,11 +1,3 @@
-DEFAULT_REL_DIFF_LIMITS =
-  list(
-    T0_100      = list(LOW = .9),
-    T100_1000   = list(LOW = .5 , MED = .9),
-    T1000_10000 = list(LOW = .1,  MED = .5, HIGH = .9),
-    T10000_     = list(LOW = .05, MED = .1, HIGH = .5, VERY_HIGH = .9)
-  )
-
 #' TBD
 #'
 #' @param t1nc_data TBD
