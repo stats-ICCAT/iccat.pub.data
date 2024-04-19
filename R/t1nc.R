@@ -6,7 +6,7 @@
 #' @param by_gear TBD
 #' @return TBD
 #' @export
-t1nc.summarise = function(t1nc_data,
+t1nc.summarise = function(t1nc_data, year_min = NA, year_max = NA,
                           by_species = TRUE, by_stock = TRUE, by_gear = TRUE) {
 
   T1NC_proc = t1nc_data[, .(CATCH = round(sum(Qty_t, na.rm = TRUE), 0)),
@@ -16,7 +16,16 @@ t1nc.summarise = function(t1nc_data,
   T1NC_proc[, FLAG_CODE       := as.factor(FLAG_CODE)]
   T1NC_proc[, GEAR_GROUP_CODE := as.factor(GEAR_GROUP_CODE)]
   T1NC_proc[, STOCK_CODE      := as.factor(STOCK_CODE)]
-  T1NC_proc[, YEAR            := as.factor(YEAR)]
+
+  year_min = ifelse(is.na(year_min), min(T1NC_proc$YEAR), year_min)
+  year_max = ifelse(is.na(year_max), max(T1NC_proc$YEAR), year_max)
+
+  T1NC_proc$YEAR =
+    factor(
+      T1NC_proc$YEAR,
+      levels = year_min:year_max,
+      labels = year_min:year_max
+    )
 
   formula_components = c()
   grouped_columns = 0
@@ -48,7 +57,8 @@ t1nc.summarise = function(t1nc_data,
       formula = as.formula(formula), #SPECIES_CODE + STOCK_CODE + FLAG_CODE + GEAR_GROUP_CODE ~ YEAR,
       value.var = "CATCH",
       fun.aggregate = sum, #function(x) ifelse(is.na(x), NA_real_, x),
-      fill = NA, drop = TRUE
+      fill = NA,
+      drop = c(TRUE, FALSE)
     )
 
   T1NC_proc_m =
@@ -57,7 +67,7 @@ t1nc.summarise = function(t1nc_data,
       id.vars = 1:grouped_columns,
       measure.vars = (grouped_columns + 1):ncol(T1NC_proc_d),
       variable.name = "YEAR",
-      value.name = "CATCH"
+      value.name = "CATCH",
     )
 
   T1NC_proc_m[, YEAR := as.integer(as.character(YEAR))]

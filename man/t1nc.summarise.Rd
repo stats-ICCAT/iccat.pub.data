@@ -4,7 +4,14 @@
 \alias{t1nc.summarise}
 \title{TBD}
 \usage{
-t1nc.summarise(t1nc_data, by_species = TRUE, by_stock = TRUE, by_gear = TRUE)
+t1nc.summarise(
+  t1nc_data,
+  year_min = NA,
+  year_max = NA,
+  by_species = TRUE,
+  by_stock = TRUE,
+  by_gear = TRUE
+)
 }
 \arguments{
 \item{t1nc_data}{TBD}
