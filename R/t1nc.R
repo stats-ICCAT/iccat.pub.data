@@ -14,8 +14,8 @@ DEFAULT_REL_DIFF_LIMITS =
 #' @param by_gear TBD
 #' @return TBD
 #' @export
-t1nc.prepare = function(t1nc_data,
-                        by_species = TRUE, by_stock = TRUE, by_gear = TRUE) {
+t1nc.summarise = function(t1nc_data,
+                          by_species = TRUE, by_stock = TRUE, by_gear = TRUE) {
 
   T1NC_proc = t1nc_data[, .(CATCH = round(sum(Qty_t, na.rm = TRUE), 0)),
                         keyby = .(SPECIES_CODE = Species, FLAG_CODE = FlagName, GEAR_GROUP_CODE = GearGrp, STOCK_CODE = Stock, YEAR = YearC)]
@@ -95,7 +95,7 @@ t1nc.evaluate = function(t1nc_data,
                          colorize_gears = FALSE) {
   sensitivity = min(1, max(0, 1 - sensitivity))
 
-  T1NC_proc_m = t1nc.prepare(t1nc_data, by_species, by_stock, by_gear)$raw
+  T1NC_proc_m = t1nc.summarise(t1nc_data, by_species, by_stock, by_gear)$raw
 
   T1NC_proc_m[, PREV_YEAR := YEAR - 1]
 
