@@ -12,20 +12,13 @@ DEFAULT_REL_DIFF_LIMITS =
 #' @param by_species TBD
 #' @param by_stock TBD
 #' @param by_gear TBD
-#' @param rel_diff_limits TBD
-#' @param sensitivity TBD
-#' @param colorize_gears TBD
 #' @return TBD
 #' @export
-t1nc.evaluate = function(t1nc_data,
-                         by_species = TRUE, by_stock = TRUE, by_gear = TRUE,
-                         rel_diff_limits = DEFAULT_REL_DIFF_LIMITS, sensitivity = 0,
-                         colorize_gears = FALSE) {
-
-  sensitivity = min(1, max(0, 1 - sensitivity))
+t1nc.prepare = function(t1nc_data,
+                        by_species = TRUE, by_stock = TRUE, by_gear = TRUE) {
 
   T1NC_proc = t1nc_data[, .(CATCH = round(sum(Qty_t, na.rm = TRUE), 0)),
-                            keyby = .(SPECIES_CODE = Species, FLAG_CODE = FlagName, GEAR_GROUP_CODE = GearGrp, STOCK_CODE = Stock, YEAR = YearC)]
+                        keyby = .(SPECIES_CODE = Species, FLAG_CODE = FlagName, GEAR_GROUP_CODE = GearGrp, STOCK_CODE = Stock, YEAR = YearC)]
 
   T1NC_proc[, SPECIES_CODE    := as.factor(SPECIES_CODE)]
   T1NC_proc[, FLAG_CODE       := as.factor(FLAG_CODE)]
@@ -34,7 +27,6 @@ t1nc.evaluate = function(t1nc_data,
   T1NC_proc[, YEAR            := as.factor(YEAR)]
 
   formula_components = c()
-
   grouped_columns = 0
 
   formula_components = append(formula_components, "FLAG_CODE")
@@ -77,7 +69,59 @@ t1nc.evaluate = function(t1nc_data,
     )
 
   T1NC_proc_m[, YEAR := as.integer(as.character(YEAR))]
+
+  return(
+    list(
+      raw     = T1NC_proc_m,
+      grouped = T1NC_proc_d
+    )
+  )
+}
+
+#' TBD
+#'
+#' @param t1nc_data TBD
+#' @param by_species TBD
+#' @param by_stock TBD
+#' @param by_gear TBD
+#' @param rel_diff_limits TBD
+#' @param sensitivity TBD
+#' @param colorize_gears TBD
+#' @return TBD
+#' @export
+t1nc.evaluate = function(t1nc_data,
+                         by_species = TRUE, by_stock = TRUE, by_gear = TRUE,
+                         rel_diff_limits = DEFAULT_REL_DIFF_LIMITS, sensitivity = 0,
+                         colorize_gears = FALSE) {
+  sensitivity = min(1, max(0, 1 - sensitivity))
+
+  T1NC_proc_m = t1nc.prepare(t1nc_data, by_species, by_stock, by_gear)$raw
+
   T1NC_proc_m[, PREV_YEAR := YEAR - 1]
+
+  formula_components = c()
+  grouped_columns = 0
+
+  formula_components = append(formula_components, "FLAG_CODE")
+  grouped_columns = grouped_columns + 1
+
+  if(by_species) {
+    formula_components = append(formula_components, "SPECIES_CODE")
+    grouped_columns = grouped_columns + 1
+  }
+
+  if(by_gear) {
+    formula_components = append(formula_components, "GEAR_GROUP_CODE")
+    grouped_columns = grouped_columns + 1
+  }
+
+  if(by_stock) {
+    formula_components = append(formula_components, "STOCK_CODE")
+    grouped_columns = grouped_columns + 1
+  }
+
+  formula = paste0(formula_components, collapse = " + ")
+  formula = paste0(formula, " ~ YEAR")
 
   T1NC_proc_m =
     merge(T1NC_proc_m, T1NC_proc_m,
@@ -195,6 +239,7 @@ t1nc.evaluate = function(t1nc_data,
 
   T1NC_FT =
     flextable(T1NC_proc_m_w) %>%
+    bg(part = "all", bg = "white") %>% # Default BG color
     set_header_labels(values = list(SPECIES_CODE    = "Species",
                                     STOCK_CODE      = "Stock",
                                     FLAG_CODE       = "Flag name",
