@@ -2,12 +2,14 @@
 #'
 #' @format
 #' \describe{
-#'   \item{CODE}{The species code}
+#'   \item{ID}{The species ID (ICCAT)}
+#'   \item{CODE}{The species code (FAO 3-ALPHA)}
 #'   \item{SCIENTIFIC_NAME}{The species scientific name}
 #'   \item{NAME_EN}{The species English name}
 #'   \item{NAME_ES}{The species Spanish name}
 #'   \item{NAME_FR}{The species French name}
 #'   \item{SPECIES_GROUP}{The species group}
+#'   \item{SPECIES_GROUP_ICCAT}{The ICCAT species group}
 #' }
 #' @export
 "REF_SPECIES"
