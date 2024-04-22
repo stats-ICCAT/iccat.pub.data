@@ -13,10 +13,10 @@ t1nc.summarise = function(t1nc_data, year_min = NA, year_max = NA,
   T1NC_proc = t1nc_data[, .(CATCH = round(sum(Qty_t, na.rm = TRUE), 0)),
                         keyby = .(SPECIES_CODE = Species, FLAG_CODE = FlagName, GEAR_GROUP_CODE = GearGrp, STOCK_CODE = Stock, CATCH_TYPE_CODE = CatchTypeCode, YEAR = YearC)]
 
-  T1NC_proc[, SPECIES_CODE    := as.factor(SPECIES_CODE)]
   T1NC_proc[, FLAG_CODE       := as.factor(FLAG_CODE)]
-  T1NC_proc[, GEAR_GROUP_CODE := as.factor(GEAR_GROUP_CODE)]
+  T1NC_proc[, SPECIES_CODE    := as.factor(SPECIES_CODE)]
   T1NC_proc[, STOCK_CODE      := as.factor(STOCK_CODE)]
+  T1NC_proc[, GEAR_GROUP_CODE := as.factor(GEAR_GROUP_CODE)]
   T1NC_proc[, CATCH_TYPE_CODE := as.factor(CATCH_TYPE_CODE)]
 
   year_min = ifelse(is.na(year_min), min(T1NC_proc$YEAR), year_min)
@@ -40,13 +40,13 @@ t1nc.summarise = function(t1nc_data, year_min = NA, year_max = NA,
     grouped_columns = grouped_columns + 1
   }
 
-  if(by_gear) {
-    formula_components = append(formula_components, "GEAR_GROUP_CODE")
+  if(by_stock) {
+    formula_components = append(formula_components, "STOCK_CODE")
     grouped_columns = grouped_columns + 1
   }
 
-  if(by_stock) {
-    formula_components = append(formula_components, "STOCK_CODE")
+  if(by_gear) {
+    formula_components = append(formula_components, "GEAR_GROUP_CODE")
     grouped_columns = grouped_columns + 1
   }
 
