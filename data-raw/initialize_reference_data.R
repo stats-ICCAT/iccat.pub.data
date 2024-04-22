@@ -1,7 +1,34 @@
 library(iccat.dev.base)
 
-### Species
+### Catch types
+REF_CATCH_TYPES =
+  tabular_query(
+    DB_T1(), "
+    SELECT
+      CT.CatchTypeID AS ID,
+      CT.CatchTypeCode AS CODE,
+      CT.CatchType AS NAME_EN,
+      NULL AS NAME_ES,
+      NULL AS NAME_FR,
+      CASE
+        WHEN CT.CatchTypeGrp = 'Discards (OUT)' THEN 'Discards'
+        ELSE CT.CatchTypeGrp
+      END AS CATCH_TYPE_GROUP
+    FROM
+      CatchTypes CT
+    ORDER BY
+      CASE
+        WHEN CT.CatchTypeGrp LIKE 'Catches' THEN 1
+        WHEN CT.CatchTypeGrp LIKE 'Landings' THEN 2
+        ELSE 3
+      END,
+      CT.CatchTypeCode
+    "
+  )
 
+usethis::use_data(REF_CATCH_TYPES, overwrite = TRUE, compress = "gzip")
+
+### Species
 REF_SPECIES =
   tabular_query(
     DB_T1(), "
@@ -10,8 +37,8 @@ REF_SPECIES =
     	SP.Alfa3FAO AS CODE,
     	SP.ScieName AS SCIENTIFIC_NAME,
     	SP.NameUK AS NAME_EN,
-    	SP.NameFR AS NAME_FR,
     	SP.NameES AS NAME_ES,
+    	SP.NameFR AS NAME_FR,
     	CASE
     		WHEN SP.Alfa3FAO IN ('BFT', 'ALB')                      THEN 'Temperate tunas'
     		WHEN SP.Alfa3FAO IN ('BET', 'YFT', 'SKJ')               THEN 'Tropical tunas'
@@ -31,7 +58,7 @@ REF_SPECIES =
     	END AS SPECIES_GROUP_ICCAT,
     	SP.StockBoundID AS STOCK_BOUNDARY_ID
     FROM
-    	[T1].[dbo].Species SP
+    	Species SP
     WHERE
     	SpeciesGrp <> 'DELETE' AND
     	TAXOCODE IS NOT NULL
@@ -42,23 +69,6 @@ REF_SPECIES =
   )
 
 usethis::use_data(REF_SPECIES, overwrite = TRUE, compress = "gzip")
-
-### Stock areas
-
-REF_STOCK_AREAS =
-  tabular_query(
-    DB_T1(), "
-    SELECT DISTINCT
-      SAreaName AS CODE,
-      SAreaDesc AS NAME_EN
-    FROM
-      [dbo].[StocksAreas]
-    ORDER BY
-      1, 2
-    "
-  )
-
-usethis::use_data(REF_STOCK_AREAS, overwrite = TRUE, compress = "gzip")
 
 ### Stocks metadata
 REF_STOCKS =
@@ -114,8 +124,23 @@ REF_STOCKS =
 
 usethis::use_data(REF_STOCKS, overwrite = TRUE, compress = "gzip")
 
-### Gear groups
+### Stock areas
+REF_STOCK_AREAS =
+  tabular_query(
+    DB_T1(), "
+    SELECT DISTINCT
+      SAreaName AS CODE,
+      SAreaDesc AS NAME_EN
+    FROM
+      [dbo].[StocksAreas]
+    ORDER BY
+      1, 2
+    "
+  )
 
+usethis::use_data(REF_STOCK_AREAS, overwrite = TRUE, compress = "gzip")
+
+### Gear groups
 REF_GEAR_GROUPS =
   tabular_query(
     DB_STAT(), "

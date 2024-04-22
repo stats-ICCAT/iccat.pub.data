@@ -10,7 +10,8 @@ t1nc.summarise(
   year_max = NA,
   by_species = TRUE,
   by_stock = TRUE,
-  by_gear = TRUE
+  by_gear = TRUE,
+  by_catch_type = TRUE
 )
 }
 \arguments{
@@ -21,6 +22,8 @@ t1nc.summarise(
 \item{by_stock}{TBD}
 
 \item{by_gear}{TBD}
+
+\item{by_catch_type}{TBD}
 }
 \value{
 TBD

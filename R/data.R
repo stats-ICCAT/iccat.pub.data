@@ -1,3 +1,17 @@
+#' The reference catch types
+#'
+#' @format
+#' \describe{
+#'   \item{ID}{The catch type ID}
+#'   \item{CODE}{The catch type code}
+#'   \item{NAME_EN}{The catch type English name}
+#'   \item{NAME_ES}{The catch type Spanish name}
+#'   \item{NAME_FR}{The catch type French name}
+#'   \item{CATCH_TYPE_GROUP}{The catch type group}
+#' }
+#' @export
+"REF_CATCH_TYPES"
+
 #' The reference species
 #'
 #' @format
@@ -28,16 +42,6 @@
 #' @export
 "REF_SPECIES_META"
 
-#' The reference stock areas
-#'
-#' @format
-#' \describe{
-#'   \item{CODE}{The stock area code}
-#'   \item{NAME_EN}{The stock area English name}
-#' }
-#' @export
-"REF_STOCK_AREAS"
-
 #' The reference stock metadata
 #'
 #' @format
@@ -50,6 +54,16 @@
 #' }
 #' @export
 "REF_STOCKS"
+
+#' The reference stock areas
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The stock area code}
+#'   \item{NAME_EN}{The stock area English name}
+#' }
+#' @export
+"REF_STOCK_AREAS"
 
 #' The reference gear groups
 #'
