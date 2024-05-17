@@ -36,7 +36,7 @@ catalogue.compile = function(fishery_ranks_data, catalogue_data) {
   CA_final_w = dcast.data.table(CA_final,
                                 formula = Species + Stock + FlagName + Status + GearGrp + DSet ~ Year,
                                 value.var = "Value",
-                                drop = TRUE)
+                                drop = c(TRUE, FALSE))
 
   end = Sys.time()
 

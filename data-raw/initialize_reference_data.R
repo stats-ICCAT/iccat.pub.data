@@ -150,7 +150,7 @@ REF_GEAR_GROUPS =
     FROM
       [dbo].GearGroups
     ORDER BY
-      GearID_fstat --GearGrpCode
+      GearID_fstat -- GearGrpID (for logical ordering) -- GearGrpCode (for lexical ordering)
     "
 )
 
