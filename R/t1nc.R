@@ -5,10 +5,12 @@
 #' @param by_stock TBD
 #' @param by_gear TBD
 #' @param by_catch_type TBD
+#' @param rank TBD
 #' @return TBD
 #' @export
 t1nc.summarise = function(t1nc_data, year_min = NA, year_max = NA,
-                          by_species = TRUE, by_stock = TRUE, by_gear = TRUE, by_catch_type = TRUE) {
+                          by_species = TRUE, by_stock = TRUE, by_gear = TRUE, by_catch_type = TRUE,
+                          rank = FALSE) {
 
   T1NC_proc = t1nc_data[, .(CATCH = round(sum(Qty_t, na.rm = TRUE), 0)),
                         keyby = .(SPECIES_CODE = Species, FLAG_CODE = FlagName, GEAR_GROUP_CODE = GearGrp, STOCK_CODE = Stock, CATCH_TYPE_CODE = CatchTypeCode, YEAR = YearC)]
@@ -78,6 +80,24 @@ t1nc.summarise = function(t1nc_data, year_min = NA, year_max = NA,
     )
 
   T1NC_proc_m[, YEAR := as.integer(as.character(YEAR))]
+
+
+  if(rank) {
+    T1NC_proc_d[, AVG_CATCH := rowSums(.SD, na.rm = TRUE), .SDcols = ( grouped_columns + 1 ):ncol(T1NC_proc_d)]
+    T1NC_proc_d[, AVG_CATCH := AVG_CATCH / (year_max - year_min + 1)]
+
+    T1NC_proc_d = T1NC_proc_d[, RANK := frank(-AVG_CATCH, ties.method = "min")][order(RANK)]
+
+    T1NC_proc_d[, AVG_CATCH_RATIO     := AVG_CATCH / sum(AVG_CATCH)]
+    T1NC_proc_d[, AVG_CATCH_RATIO_CUM := cumsum(AVG_CATCH_RATIO)]
+
+    T1NC_proc_d = T1NC_proc_d %>% relocate(AVG_CATCH_RATIO_CUM)
+    T1NC_proc_d = T1NC_proc_d %>% relocate(AVG_CATCH_RATIO)
+    T1NC_proc_d = T1NC_proc_d %>% relocate(formula_components)
+
+    T1NC_proc_d$AVG_CATCH = NULL
+    T1NC_proc_d$RANK      = NULL
+  }
 
   return(
     list(
