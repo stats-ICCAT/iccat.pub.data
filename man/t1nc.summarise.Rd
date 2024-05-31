@@ -11,7 +11,8 @@ t1nc.summarise(
   by_species = TRUE,
   by_stock = TRUE,
   by_gear = TRUE,
-  by_catch_type = TRUE
+  by_catch_type = TRUE,
+  rank = FALSE
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ t1nc.summarise(
 \item{by_gear}{TBD}
 
 \item{by_catch_type}{TBD}
+
+\item{rank}{TBD}
 }
 \value{
 TBD
