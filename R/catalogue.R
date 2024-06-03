@@ -18,9 +18,9 @@ catalogue.compile = function(fishery_ranks_data, catalogue_data) {
   CA_SZ = CA[DSet == "3-sz", .(QtySZ = sum(Qty, na.rm = TRUE)), keyby = .(Species, Year, Status, FlagName, Stock, GearGrp)]
   CA_CS = CA[DSet == "4-cs", .(QtyCS = sum(Qty, na.rm = TRUE)), keyby = .(Species, Year, Status, FlagName, Stock, GearGrp)]
 
-  CA_ALL = merge(CA_NC,  CA_CE, by = c("Species", "Year", "Status", "FlagName", "Stock", "GearGrp"), all.x = TRUE)
-  CA_ALL = merge(CA_ALL, CA_SZ, by = c("Species", "Year", "Status", "FlagName", "Stock", "GearGrp"), all.x = TRUE)
-  CA_ALL = merge(CA_ALL, CA_CS, by = c("Species", "Year", "Status", "FlagName", "Stock", "GearGrp"), all.x = TRUE)
+  CA_ALL = merge(CA_NC,  CA_CE, by = c("Species", "Year", "Status", "FlagName", "Stock", "GearGrp"), all.x = TRUE, all.y = TRUE)
+  CA_ALL = merge(CA_ALL, CA_SZ, by = c("Species", "Year", "Status", "FlagName", "Stock", "GearGrp"), all.x = TRUE, all.y = TRUE)
+  CA_ALL = merge(CA_ALL, CA_CS, by = c("Species", "Year", "Status", "FlagName", "Stock", "GearGrp"), all.x = TRUE, all.y = TRUE)
 
   CA_ALL[, Score := ""]
   CA_ALL[!is.na(QtyCE), Score := paste0(Score, "a")]
@@ -28,7 +28,7 @@ catalogue.compile = function(fishery_ranks_data, catalogue_data) {
   CA_ALL[!is.na(QtyCS), Score := paste0(Score, "c")]
   CA_ALL[Score == "", Score := "-1"]
 
-  CA_final = CA_ALL[, .(Species, Stock, FlagName, Status, GearGrp, DSet = "t1", Year, Value = str_trim(format(round(QtyNC, 0), big.mark = ",")))]
+  CA_final = CA_ALL[, .(Species, Stock, FlagName, Status, GearGrp, DSet = "t1", Year, Value = ifelse(is.na(QtyNC), NA_character_, str_trim(format(round(QtyNC, 0), big.mark = ","))))]
   CA_final = rbind(CA_final, CA_ALL[, .(Species, Stock, FlagName, Status, GearGrp, DSet = "t2", Year, Value = Score)])
 
   start = Sys.time()
