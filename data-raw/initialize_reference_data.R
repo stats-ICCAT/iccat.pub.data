@@ -61,7 +61,7 @@ REF_SPECIES =
     	Species SP
     WHERE
     	SpeciesGrp <> 'DELETE' AND
-    	TAXOCODE IS NOT NULL
+    ( TAXOCODE IS NOT NULL OR SP.Alfa3FAO = 'DOL' ) -- Dolphinfish has currently a NULL taxocode in the Species table, but we want to keep it
     ORDER BY
     	LEFT(SP.SpeciesGrp, 1),
     	SP.SpeciesID
