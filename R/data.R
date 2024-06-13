@@ -12,6 +12,17 @@
 #' @export
 "REF_CATCH_TYPES"
 
+#' The reference effort types
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The effort type code}
+#'   \item{NAME_EN}{The effort type English name}
+#'   \item{GEAR_DEPENDENT}{If the effort type is associated to a specific gear}
+#' }
+#' @export
+"REF_EFFORT_TYPES"
+
 #' The reference species
 #'
 #' @format
@@ -75,6 +86,18 @@
 #' @export
 "REF_GEAR_GROUPS"
 
+#' The reference gears
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The gear code}
+#'   \item{GEAR_GROUP_CODE}{The gear group code}
+#'   \item{NAME_EN}{The gear English name}
+#'   \item{DISCARDS}{If the specific gear is used to report discards - DEPRECATED}
+#' }
+#' @export
+"REF_GEARS"
+
 #' The reference flags
 #'
 #' @format
@@ -84,3 +107,48 @@
 #' }
 #' @export
 "REF_FLAGS"
+
+#' The reference fleets
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The fleet code}
+#'   \item{FLAG_CODE}{The flag code for the fleet}
+#'   \item{VESSEL_FLAG_CODE}{The vessel flag code for the fleet}
+#'   \item{NAME_EN}{The fleet English name}
+#'   \item{DEPRECATED}{If the fleet is deprecated and kept for historical reasons only}
+#' }
+#' @export
+"REF_FLEETS"
+
+#' The reference time periods
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The time period code}
+#'   \item{TIME_PERIOD_GROUP_CODE}{The time period group code}
+#'   \item{NAME_EN}{The time period English name}
+#' }
+#' @export
+"REF_TIME_PERIODS"
+
+#' The reference time period groups
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The time period group code}
+#'   \item{NAME_EN}{The time period group English name}
+#' }
+#' @export
+"REF_TIME_PERIOD_GROUPS"
+
+#' The reference square types
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The square type code}
+#'   \item{NAME_EN}{The square type English name}
+#'   \item{DEPRECATED}{If the square type is deprecated and kept for historical reasons only}
+#' }
+#' @export
+"REF_SQUARE_TYPES"
