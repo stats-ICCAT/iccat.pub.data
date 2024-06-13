@@ -222,7 +222,8 @@ REF_FLEETS =
   tabular_query(
     DB_STAT(), "
     SELECT
-      F.FleetID AS CODE,
+      F.FleetID AS ID,
+      F.FleetCode AS CODE,
     	FL.FlagCode AS FLAG_CODE,
     	F.FlagOfVesselCode AS VESSEL_FLAG_CODE,
     	F.FleetName AS NAME_EN,

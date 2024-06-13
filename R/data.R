@@ -112,6 +112,7 @@
 #'
 #' @format
 #' \describe{
+#'   \item{ID}{The fleet ID}
 #'   \item{CODE}{The fleet code}
 #'   \item{FLAG_CODE}{The flag code for the fleet}
 #'   \item{VESSEL_FLAG_CODE}{The vessel flag code for the fleet}
