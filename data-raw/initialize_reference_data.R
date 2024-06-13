@@ -182,7 +182,6 @@ usethis::use_data(REF_GEAR_GROUPS, overwrite = TRUE, compress = "gzip")
 REF_GEARS =
   tabular_query(
     DB_STAT(), "
-    USE [dbSTAT]
     SELECT
         G.GearCode AS CODE,
     	GG.GearGrpCode AS GEAR_GROUP_CODE,
