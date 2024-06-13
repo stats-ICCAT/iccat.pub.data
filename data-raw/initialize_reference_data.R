@@ -235,7 +235,7 @@ REF_FLEETS =
     ON
     	F.RepFlagID = FL.FlagID
     ORDER BY
-    	4 -- NAME_EN"
+    	5 -- NAME_EN"
   )
 
 usethis::use_data(REF_FLEETS, overwrite = TRUE, compress = "gzip")
