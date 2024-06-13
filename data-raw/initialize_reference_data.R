@@ -284,15 +284,15 @@ REF_SQUARE_TYPES =
     ORDER BY
     	CASE
     		WHEN SquareTypeCode = 'LatLon' THEN 0
-    		WHEN SquareTypeCode =   '1x1'  THEN 10
-    		WHEN SquareTypeCode =   '5x5'  THEN 11
-    		WHEN SquareTypeCode = '10x10'  THEN 12
-    		WHEN SquareTypeCode = '20x20'  THEN 13
-    		WHEN SquareTypeCode =  '5x10'  THEN 14
-    		WHEN SquareTypeCode = '10x20'  THEN 15
-    		WHEN SquareTypeCode = 'Stock'  THEN 20
-    		WHEN SquareTypeCode = 'ICCAT'  THEN 40
-    		WHEN SquareTypeCode = 'BFWG'   THEN 50
+    		WHEN SquareTypeCode =    '1x1' THEN 10
+    		WHEN SquareTypeCode =    '5x5' THEN 11
+    		WHEN SquareTypeCode =  '10x10' THEN 12
+    		WHEN SquareTypeCode =  '20x20' THEN 13
+    		WHEN SquareTypeCode =   '5x10' THEN 14
+    		WHEN SquareTypeCode =  '10x20' THEN 15
+    		WHEN SquareTypeCode =  'Stock' THEN 20
+    		WHEN SquareTypeCode =  'ICCAT' THEN 40
+    		WHEN SquareTypeCode =   'BFWG' THEN 50
     		ELSE 100
     	END,
     	2"
