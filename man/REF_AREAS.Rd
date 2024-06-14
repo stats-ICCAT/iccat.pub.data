@@ -3,7 +3,7 @@
 \docType{data}
 \name{REF_AREAS}
 \alias{REF_AREAS}
-\title{The reference fishing areas}
+\title{The reference fishing zones}
 \format{
 \describe{
   \item{CODE}{The fishing zone code}
@@ -17,6 +17,6 @@
 REF_AREAS
 }
 \description{
-The reference fishing areas
+The reference fishing zones
 }
 \keyword{datasets}

@@ -174,6 +174,23 @@ REF_AREAS =
 
 usethis::use_data(REF_AREAS, overwrite = TRUE, compress = "gzip")
 
+### Sampling areas
+REF_SAMPLING_AREAS =
+  tabular_query(
+    DB_GIS(server = "ATENEA\\SQL22"), "
+    SELECT
+      CODE,
+    	NAME_EN
+    FROM
+    	AREAS
+    WHERE
+      TYPE_CODE = 'SAMPLING_AREA'
+    ORDER BY
+      CODE"
+  )
+
+usethis::use_data(REF_SAMPLING_AREAS, overwrite = TRUE, compress = "gzip")
+
 ### Quality levels
 REF_QUALITY_LEVELS =
   tabular_query(

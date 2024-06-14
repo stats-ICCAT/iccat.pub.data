@@ -89,7 +89,7 @@
 #' @export
 "REF_FISHING_ZONES"
 
-#' The reference fishing areas
+#' The reference fishing zones
 #'
 #' @format
 #' \describe{
@@ -101,6 +101,16 @@
 #' }
 #' @export
 "REF_AREAS"
+
+#' The reference sampling areas
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The sampling area code}
+#'   \item{NAME_EN}{The sampling area English name}
+#' }
+#' @export
+"REF_SAMPLING_AREAS"
 
 #' The reference data quality levels
 #'
