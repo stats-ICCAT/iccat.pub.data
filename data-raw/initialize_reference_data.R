@@ -1,5 +1,179 @@
 library(iccat.dev.base)
 
+### Time periods
+REF_TIME_PERIODS =
+  tabular_query(
+    DB_STAT(), "
+    SELECT
+      TimePeriodID AS CODE,
+      TimePeriodGroup AS TIME_PERIOD_GROUP_CODE,
+      TimePeriod AS NAME_EN
+    FROM
+      dbSTAT.dbo.TimePeriods
+    ORDER BY
+      TimePeriodGroup, 1 ASC"
+  )
+
+usethis::use_data(REF_TIME_PERIODS, overwrite = TRUE, compress = "gzip")
+
+### Time period groups
+REF_TIME_PERIOD_GROUPS =
+  tabular_query(
+    DB_STAT(), "
+    SELECT DISTINCT
+      TimePeriodGroup AS CODE,
+      TPeriodDescrip AS NAME_EN
+    FROM
+      dbSTAT.dbo.TimePeriods
+    ORDER BY
+      1 ASC"
+  )
+
+usethis::use_data(REF_TIME_PERIOD_GROUPS, overwrite = TRUE, compress = "gzip")
+
+### Parties
+REF_PARTIES =
+  tabular_query(
+    DB_T1(), "
+    SELECT
+    	PartyCode AS CODE,
+    	StatusTypeID AS STATUS_TYPE_CODE,
+    	EntityType AS ENTTITY_TYPE_CODE,
+    	PartyName AS NAME_EN,
+    	OfficialDate AS ACCESSION_DATE
+    FROM [T1].[dbo].[Parties]
+    ORDER BY
+    	StatusTypeID,
+    	CASE
+    		WHEN EntityType = 'Country' THEN 0
+    		WHEN EntityType = 'Organism' THEN 1
+    		WHEN EntityType = 'Fishing Entity' THEN 2
+    		ELSE 3
+    	END,
+    	PartyName
+    "
+  )
+
+usethis::use_data(REF_PARTIES, overwrite = TRUE, compress = "gzip")
+
+### Party status
+REF_PARTY_STATUS =
+  tabular_query(
+    DB_T1(), "
+    SELECT DISTINCT
+      StatusTypeID AS CODE,
+      Status AS NAME_EN,
+      Description AS DESCRIPTION_EN
+    FROM
+      [dbo].[PartyStatus]
+    ORDER BY
+      1
+    "
+  )
+
+usethis::use_data(REF_PARTY_STATUS, overwrite = TRUE, compress = "gzip")
+
+### Flags
+REF_FLAGS =
+  tabular_query(
+    DB_STAT(), "
+    SELECT DISTINCT
+      FlagCode AS CODE,
+      FlagName AS NAME_EN
+    FROM
+      [dbo].[Flags]
+    ORDER BY
+      2
+    "
+  )
+
+usethis::use_data(REF_FLAGS, overwrite = TRUE, compress = "gzip")
+
+### Fleets
+REF_FLEETS =
+  tabular_query(
+    DB_STAT(), "
+    SELECT
+      F.FleetID AS ID,
+      F.FleetCode AS CODE,
+    	FL.FlagCode AS FLAG_CODE,
+    	F.FlagOfVesselCode AS VESSEL_FLAG_CODE,
+    	F.FleetName AS NAME_EN,
+    	CASE WHEN [Status] = 'DELETE' THEN 1 ELSE 0 END AS DEPRECATED
+    FROM
+    	Fleets F
+    LEFT JOIN
+    	Flags FL
+    ON
+    	F.RepFlagID = FL.FlagID
+    ORDER BY
+    	5 -- NAME_EN"
+  )
+
+usethis::use_data(REF_FLEETS, overwrite = TRUE, compress = "gzip")
+
+### Square types
+REF_SQUARE_TYPES =
+  tabular_query(
+    DB_STAT(), "
+    SELECT
+      SquareTypeCode AS CODE,
+    	KSquareDescrip AS NAME_EN,
+    	CASE WHEN [Status] = 'descontinued' THEN 1 ELSE 0 END AS DEPRECATED
+    FROM
+    	SquareTypes
+    ORDER BY
+    	CASE
+    		WHEN SquareTypeCode = 'LatLon' THEN 0
+    		WHEN SquareTypeCode =    '1x1' THEN 10
+    		WHEN SquareTypeCode =    '5x5' THEN 11
+    		WHEN SquareTypeCode =  '10x10' THEN 12
+    		WHEN SquareTypeCode =  '20x20' THEN 13
+    		WHEN SquareTypeCode =   '5x10' THEN 14
+    		WHEN SquareTypeCode =  '10x20' THEN 15
+    		WHEN SquareTypeCode =  'Stock' THEN 20
+    		WHEN SquareTypeCode =  'ICCAT' THEN 40
+    		WHEN SquareTypeCode =   'BFWG' THEN 50
+    		ELSE 100
+    	END,
+    	2"
+  )
+
+usethis::use_data(REF_SQUARE_TYPES, overwrite = TRUE, compress = "gzip")
+
+### Fishing zones
+REF_FISHING_ZONES =
+  tabular_query(
+    DB_T1(), "
+    SELECT
+      FishZoneCode AS CODE,
+    	FishingZone AS NAME_EN
+    FROM
+    	FishingZones
+    ORDER BY
+      FishZoneID"
+  )
+
+usethis::use_data(REF_FISHING_ZONES, overwrite = TRUE, compress = "gzip")
+
+### Areas
+REF_AREAS =
+  tabular_query(
+    DB_T1(), "
+    SELECT
+      AreaCode AS CODE,
+      Quadrant AS QUADRANT_CODE,
+      AreaGeo AS GEO_AREA_CODE,
+    	RegionName AS NAME_EN,
+    	CASE WHEN AreaSB = 'del' THEN 1 ELSE 0 END AS DEPRECATED
+    FROM
+    	StatAreas
+    ORDER BY
+      Quadrant, AreaID"
+  )
+
+usethis::use_data(REF_AREAS, overwrite = TRUE, compress = "gzip")
+
 ### Quality levels
 REF_QUALITY_LEVELS =
   tabular_query(
@@ -21,6 +195,68 @@ REF_QUALITY_LEVELS =
   )
 
 usethis::use_data(REF_QUALITY_LEVELS, overwrite = TRUE, compress = "gzip")
+
+
+### Gear groups
+REF_GEAR_GROUPS =
+  tabular_query(
+    DB_STAT(), "
+    SELECT
+      GearGrpCode AS CODE,
+      GearGroup   AS NAME_EN
+    FROM
+      [dbo].GearGroups
+    ORDER BY
+      GearID_fstat -- GearGrpID (for logical ordering) -- GearGrpCode (for lexical ordering)
+    "
+  )
+
+REF_GEAR_GROUPS = rbind(REF_GEAR_GROUPS, data.table(CODE = "OT", NAME_EN = "Other gears"))
+
+usethis::use_data(REF_GEAR_GROUPS, overwrite = TRUE, compress = "gzip")
+
+### Gears
+REF_GEARS =
+  tabular_query(
+    DB_STAT(), "
+    SELECT
+        G.GearCode AS CODE,
+    	GG.GearGrpCode AS GEAR_GROUP_CODE,
+    	G.Gear AS NAME_EN,
+    	G.Discards AS DISCARDS
+    FROM
+        [dbo].Gears G
+    INNER JOIN
+    	[dbo].GearGroups GG
+    ON
+    	G.GearGrpID = GG.GearGrpID
+    ORDER BY
+    	GG.GearID_fstat,
+    	G.GearCode
+    "
+  )
+
+usethis::use_data(REF_GEARS, overwrite = TRUE, compress = "gzip")
+
+### Effort types
+REF_EFFORT_TYPES =
+  tabular_query(
+    DB_STAT(), "
+    SELECT
+      EffortTypeCode AS CODE,
+    	EffortType AS NAME_EN,
+    	IsGearDep AS GEAR_DEPENDENT
+    FROM
+    	EffortTypes
+    ORDER BY
+    	CASE
+    		WHEN EffortTypeCode <> '-none-' THEN 0
+    		ELSE 1
+    	END,
+    	1"
+  )
+
+usethis::use_data(REF_EFFORT_TYPES, overwrite = TRUE, compress = "gzip")
 
 ### Catch types
 REF_CATCH_TYPES =
@@ -49,26 +285,6 @@ REF_CATCH_TYPES =
   )
 
 usethis::use_data(REF_CATCH_TYPES, overwrite = TRUE, compress = "gzip")
-
-### Effort types
-REF_EFFORT_TYPES =
-  tabular_query(
-    DB_STAT(), "
-    SELECT
-      EffortTypeCode AS CODE,
-    	EffortType AS NAME_EN,
-    	IsGearDep AS GEAR_DEPENDENT
-    FROM
-    	EffortTypes
-    ORDER BY
-    	CASE
-    		WHEN EffortTypeCode <> '-none-' THEN 0
-    		ELSE 1
-    	END,
-    	1"
-  )
-
-usethis::use_data(REF_EFFORT_TYPES, overwrite = TRUE, compress = "gzip")
 
 ### Species
 REF_SPECIES =
@@ -181,176 +397,3 @@ REF_STOCK_AREAS =
   )
 
 usethis::use_data(REF_STOCK_AREAS, overwrite = TRUE, compress = "gzip")
-
-### Gear groups
-REF_GEAR_GROUPS =
-  tabular_query(
-    DB_STAT(), "
-    SELECT
-      GearGrpCode AS CODE,
-      GearGroup   AS NAME_EN
-    FROM
-      [dbo].GearGroups
-    ORDER BY
-      GearID_fstat -- GearGrpID (for logical ordering) -- GearGrpCode (for lexical ordering)
-    "
-)
-
-REF_GEAR_GROUPS = rbind(REF_GEAR_GROUPS, data.table(CODE = "OT", NAME_EN = "Other gears"))
-
-usethis::use_data(REF_GEAR_GROUPS, overwrite = TRUE, compress = "gzip")
-
-### Gears
-REF_GEARS =
-  tabular_query(
-    DB_STAT(), "
-    SELECT
-        G.GearCode AS CODE,
-    	GG.GearGrpCode AS GEAR_GROUP_CODE,
-    	G.Gear AS NAME_EN,
-    	G.Discards AS DISCARDS
-    FROM
-        [dbo].Gears G
-    INNER JOIN
-    	[dbo].GearGroups GG
-    ON
-    	G.GearGrpID = GG.GearGrpID
-    ORDER BY
-    	GG.GearID_fstat,
-    	G.GearCode
-    "
-  )
-
-usethis::use_data(REF_GEARS, overwrite = TRUE, compress = "gzip")
-
-### Flags
-REF_FLAGS =
-  tabular_query(
-    DB_STAT(), "
-    SELECT DISTINCT
-      FlagCode AS CODE,
-      FlagName AS NAME_EN
-    FROM
-      [dbo].[Flags]
-    ORDER BY
-      2
-    "
-  )
-
-usethis::use_data(REF_FLAGS, overwrite = TRUE, compress = "gzip")
-
-### Fleets
-REF_FLEETS =
-  tabular_query(
-    DB_STAT(), "
-    SELECT
-      F.FleetID AS ID,
-      F.FleetCode AS CODE,
-    	FL.FlagCode AS FLAG_CODE,
-    	F.FlagOfVesselCode AS VESSEL_FLAG_CODE,
-    	F.FleetName AS NAME_EN,
-    	CASE WHEN [Status] = 'DELETE' THEN 1 ELSE 0 END AS DEPRECATED
-    FROM
-    	Fleets F
-    LEFT JOIN
-    	Flags FL
-    ON
-    	F.RepFlagID = FL.FlagID
-    ORDER BY
-    	5 -- NAME_EN"
-  )
-
-usethis::use_data(REF_FLEETS, overwrite = TRUE, compress = "gzip")
-
-### Time periods
-REF_TIME_PERIODS =
-  tabular_query(
-    DB_STAT(), "
-    SELECT
-      TimePeriodID AS CODE,
-      TimePeriodGroup AS TIME_PERIOD_GROUP_CODE,
-      TimePeriod AS NAME_EN
-    FROM
-      dbSTAT.dbo.TimePeriods
-    ORDER BY
-      TimePeriodGroup, 1 ASC"
-  )
-
-usethis::use_data(REF_TIME_PERIODS, overwrite = TRUE, compress = "gzip")
-
-### Time period groups
-REF_TIME_PERIOD_GROUPS =
-  tabular_query(
-    DB_STAT(), "
-    SELECT DISTINCT
-      TimePeriodGroup AS CODE,
-      TPeriodDescrip AS NAME_EN
-    FROM
-      dbSTAT.dbo.TimePeriods
-    ORDER BY
-      1 ASC"
-  )
-
-usethis::use_data(REF_TIME_PERIOD_GROUPS, overwrite = TRUE, compress = "gzip")
-
-### Square types
-REF_SQUARE_TYPES =
-  tabular_query(
-    DB_STAT(), "
-    SELECT
-      SquareTypeCode AS CODE,
-    	KSquareDescrip AS NAME_EN,
-    	CASE WHEN [Status] = 'descontinued' THEN 1 ELSE 0 END AS DEPRECATED
-    FROM
-    	SquareTypes
-    ORDER BY
-    	CASE
-    		WHEN SquareTypeCode = 'LatLon' THEN 0
-    		WHEN SquareTypeCode =    '1x1' THEN 10
-    		WHEN SquareTypeCode =    '5x5' THEN 11
-    		WHEN SquareTypeCode =  '10x10' THEN 12
-    		WHEN SquareTypeCode =  '20x20' THEN 13
-    		WHEN SquareTypeCode =   '5x10' THEN 14
-    		WHEN SquareTypeCode =  '10x20' THEN 15
-    		WHEN SquareTypeCode =  'Stock' THEN 20
-    		WHEN SquareTypeCode =  'ICCAT' THEN 40
-    		WHEN SquareTypeCode =   'BFWG' THEN 50
-    		ELSE 100
-    	END,
-    	2"
-  )
-
-usethis::use_data(REF_SQUARE_TYPES, overwrite = TRUE, compress = "gzip")
-
-### Fishing zones
-REF_FISHING_ZONES =
-  tabular_query(
-    DB_T1(), "
-    SELECT
-      FishZoneCode AS CODE,
-    	FishingZone AS NAME_EN
-    FROM
-    	FishingZones
-    ORDER BY
-      FishZoneID"
-  )
-
-usethis::use_data(REF_FISHING_ZONES, overwrite = TRUE, compress = "gzip")
-
-### Areas
-REF_AREAS =
-  tabular_query(
-    DB_T1(), "
-    SELECT
-      AreaCode AS CODE,
-      Quadrant AS QUADRANT_CODE,
-      AreaGeo AS GEO_AREA_CODE,
-    	RegionName AS NAME_EN,
-    	CASE WHEN AreaSB = 'del' THEN 1 ELSE 0 END AS DEPRECATED
-    FROM
-    	StatAreas
-    ORDER BY
-      Quadrant, AreaID"
-  )
-
-usethis::use_data(REF_AREAS, overwrite = TRUE, compress = "gzip")
