@@ -1,5 +1,27 @@
 library(iccat.dev.base)
 
+### Quality levels
+REF_QUALITY_LEVELS =
+  tabular_query(
+    DB_T1(), "
+    SELECT
+    	QualInfoCode AS CODE,
+    	QInfoGroup AS QUALITY_GROUP_CODE,
+    	QualInfo AS NAME_EN,
+    	[Description] AS DESCRIPTION_EN
+    FROM T1.dbo.QualOfInfo
+    ORDER BY
+    	CASE
+    		WHEN QInfoGroup = 'Reported' THEN 0
+    		WHEN QInfoGroup = 'Estimation' THEN 1
+    		WHEN QInfoGroup = 'Qcontrol' THEN 2
+    		ELSE 3
+    	END,
+    	QualInfo"
+  )
+
+usethis::use_data(REF_QUALITY_LEVELS, overwrite = TRUE, compress = "gzip")
+
 ### Catch types
 REF_CATCH_TYPES =
   tabular_query(
@@ -299,3 +321,36 @@ REF_SQUARE_TYPES =
   )
 
 usethis::use_data(REF_SQUARE_TYPES, overwrite = TRUE, compress = "gzip")
+
+### Fishing zones
+REF_FISHING_ZONES =
+  tabular_query(
+    DB_T1(), "
+    SELECT
+      FishZoneCode AS CODE,
+    	FishingZone AS NAME_EN
+    FROM
+    	FishingZones
+    ORDER BY
+      FishZoneID"
+  )
+
+usethis::use_data(REF_FISHING_ZONES, overwrite = TRUE, compress = "gzip")
+
+### Areas
+REF_AREAS =
+  tabular_query(
+    DB_T1(), "
+    SELECT
+      AreaCode AS CODE,
+      Quadrant AS QUADRANT_CODE,
+      AreaGeo AS GEO_AREA_CODE,
+    	RegionName AS NAME_EN,
+    	CASE WHEN AreaSB = 'del' THEN 1 ELSE 0 END AS DEPRECATED
+    FROM
+    	StatAreas
+    ORDER BY
+      Quadrant, AreaID"
+  )
+
+usethis::use_data(REF_AREAS, overwrite = TRUE, compress = "gzip")

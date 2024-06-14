@@ -1,3 +1,15 @@
+#' The reference data quality levels
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The quality level code}
+#'   \item{QUALITY_GROUP_CODE}{The quality level group code}
+#'   \item{NAME_EN}{The quality level English name}
+#'   \item{DESCRIPTION_EN}{The quality level English description}
+#' }
+#' @export
+"REF_QUALITY_LEVELS"
+
 #' The reference catch types
 #'
 #' @format
@@ -153,3 +165,26 @@
 #' }
 #' @export
 "REF_SQUARE_TYPES"
+
+#' The reference fishing zones
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The fishing zone code}
+#'   \item{NAME_EN}{The fishing zone English name}
+#' }
+#' @export
+"REF_FISHING_ZONES"
+
+#' The reference fishing areas
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The fishing zone code}
+#'   \item{QUADRANT_CODE}{The fishing area quadrant code}
+#'   \item{GEO_AREA_CODE}{The fishing area geographical area code}
+#'   \item{NAME_EN}{The fishing area English name}
+#'   \item{DEPRECATED}{If the fishing area is deprecated and kept for historical reasons only}
+#' }
+#' @export
+"REF_AREAS"
