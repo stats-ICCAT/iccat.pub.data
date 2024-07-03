@@ -478,6 +478,25 @@ REF_PRODUCT_TYPES =
 
 usethis::use_data(REF_PRODUCT_TYPES, overwrite = TRUE, compress = "gzip")
 
+### Sampling units
+REF_SAMPLING_UNITS =
+  tabular_query(
+    DB_STAT(database = "dbSTATpre"), "
+    SELECT
+    	SampUnitTypeCode AS CODE,
+      SampleUnitType AS NAME_EN
+    FROM
+    	[dbo].[SampUnitTypes]
+    ORDER BY
+    	CASE
+    		WHEN SampUnitTypeID = 0 THEN 99
+    		ELSE SampUnitTypeID
+    	END
+    "
+  )
+
+usethis::use_data(REF_SAMPLING_UNITS, overwrite = TRUE, compress = "gzip")
+
 ### Sampling locations
 REF_SAMPLING_LOCATIONS =
   tabular_query(

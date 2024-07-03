@@ -256,6 +256,16 @@
 #' @export
 "REF_PRODUCT_TYPES"
 
+#' The sampling units
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The sampling unit code}
+#'   \item{NAME_EN}{The sampling unit English name}
+#' }
+#' @export
+"REF_SAMPLING_UNITS"
+
 #' The sampling locations
 #'
 #' @format
