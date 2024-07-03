@@ -1,3 +1,24 @@
+#' The data sources
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The data source code}
+#'   \item{NAME_EN}{The data source English name}
+#' }
+#' @export
+"REF_DATA_SOURCES"
+
+#' The data source contents
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The data source content code}
+#'   \item{NAME_EN}{The data source content English name}
+#'   \item{NAME_ES}{The data source content Spanish name}
+#'   \item{NAME_FR}{The data source content French name}
+#' }
+#' @export
+"REF_DATA_SOURCE_CONTENTS"
 
 #' The reference time periods
 #'
@@ -223,3 +244,45 @@
 #' }
 #' @export
 "REF_STOCK_AREAS"
+
+#' The product types
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The product type code}
+#'   \item{NAME_EN}{The product type English name}
+#'   \item{IS_WEIGHT}{If the product type refers to a weight (1) or to a number (0)}
+#' }
+#' @export
+"REF_PRODUCT_TYPES"
+
+#' The sampling locations
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The sampling location code}
+#'   \item{NAME_EN}{The sampling location English name}
+#' }
+#' @export
+"REF_SAMPLING_LOCATIONS"
+
+#' The frequency types
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The frequency type code}
+#'   \item{NAME_EN}{The frequency type English name}
+#'   \item{FREQUENCY_TYPE_GROUP_CODE}{The frequency type group code}
+#' }
+#' @export
+"REF_FREQUENCY_TYPES"
+
+#' The reference size class limits
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The size class limit code}
+#'   \item{NAME_EN}{The size class limit English name}
+#' }
+#' @export
+"REF_SIZE_CLASS_LIMITS"

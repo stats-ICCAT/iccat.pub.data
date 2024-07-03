@@ -1,5 +1,45 @@
 library(iccat.dev.base)
 
+### Data sources
+REF_DATA_SOURCES =
+  tabular_query(
+    DB_STAT(), "
+    SELECT
+    	DataSourceCode AS CODE,
+    	DataSource AS NAME_EN
+    FROM
+    	[dbo].[DataSources]
+    ORDER BY
+    	CASE
+    		WHEN DataSourceID = 0 THEN 99
+    		ELSE DataSourceID
+    	END
+    "
+  )
+
+usethis::use_data(REF_DATA_SOURCES, overwrite = TRUE, compress = "gzip")
+
+### Data source content
+REF_DATA_SOURCE_CONTENTS =
+  tabular_query(
+    DB_STAT(), "
+    SELECT
+    	DsContentCode AS CODE,
+    	DsContentEN AS NAME_EN,
+      DsContentES AS NAME_ES,
+      DsContentFR AS NAME_FR
+    FROM
+    	[dbo].[DsContent]
+    ORDER BY
+    	CASE
+    		WHEN DsContentID = 0 THEN 99
+    		ELSE DsContentID
+    	END
+    "
+  )
+
+usethis::use_data(REF_DATA_SOURCE_CONTENTS, overwrite = TRUE, compress = "gzip")
+
 ### Time periods
 REF_TIME_PERIODS =
   tabular_query(
@@ -414,3 +454,90 @@ REF_STOCK_AREAS =
   )
 
 usethis::use_data(REF_STOCK_AREAS, overwrite = TRUE, compress = "gzip")
+
+### Product types
+REF_PRODUCT_TYPES =
+  tabular_query(
+    DB_STAT(), "
+    SELECT
+      ProductTypeCode AS CODE,
+      ProductType AS NAME_EN,
+      CASE
+        WHEN NorW = 'w' THEN 1
+		    ELSE 0
+	    END AS IS_WEIGHT
+    FROM
+	    [dbo].[ProductTypes]
+    ORDER BY
+      CASE
+    		WHEN ProductTypeID = 0 THEN 99
+    		ELSE ProductTypeID
+    	END
+    "
+  )
+
+usethis::use_data(REF_PRODUCT_TYPES, overwrite = TRUE, compress = "gzip")
+
+### Sampling locations
+REF_SAMPLING_LOCATIONS =
+  tabular_query(
+    DB_STAT(), "
+    SELECT
+    	SampLocationCode AS CODE,
+      SampleLocation AS NAME_EN
+    FROM
+    	[dbo].[SampLocations]
+    ORDER BY
+    	CASE
+    		WHEN SampLocationID = 0 THEN 99
+    		ELSE SampLocationID
+    	END
+    "
+  )
+
+usethis::use_data(REF_SAMPLING_LOCATIONS, overwrite = TRUE, compress = "gzip")
+
+### Frequency types
+REF_FREQUENCY_TYPES =
+  tabular_query(
+    DB_STAT(), "
+    SELECT
+    	FreqTypeCode AS CODE,
+    	FreqType AS NAME_EN,
+    	CASE
+    		WHEN GroupID IS NULL THEN 'L'
+    		ELSE GroupID
+    	END AS FREQUENCY_TYPE_GROUP_CODE
+    FROM
+    	[dbo].[FreqTypes]
+    ORDER BY
+    	CASE
+    		WHEN GroupID = '-' THEN 99
+    		WHEN GroupID = 'L' OR GroupID IS NULL THEN  1
+    		WHEN GroupID = 'W' THEN  2
+    		WHEN GroupID = 'A' THEN  3
+    	END,
+    	FreqTypeCode
+    "
+  )
+
+usethis::use_data(REF_FREQUENCY_TYPES, overwrite = TRUE, compress = "gzip")
+
+### Size class limits
+REF_SIZE_CLASS_LIMITS =
+  tabular_query(
+    DB_STAT(), "
+    SELECT
+    	SzClassLimitCode AS CODE,
+        SzClassLimit AS NAME_EN
+    FROM
+    	[dbo].[SizeClassLimits]
+    ORDER BY
+    	CASE
+    		WHEN SzClassLimitID = 0 THEN 99
+    		ELSE SzClassLimitID
+    	END
+    "
+  )
+
+usethis::use_data(REF_SIZE_CLASS_LIMITS, overwrite = TRUE, compress = "gzip")
