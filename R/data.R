@@ -167,6 +167,19 @@
 #' @export
 "REF_GEARS"
 
+#' The reference gear groups by species
+#'
+#' @format
+#' \describe{
+#'   \item{SPECIES_CODE}{The species code}
+#'   \item{GEAR_GROUP_CODE}{The gear group code}
+#'   \item{SPECIES_GEAR_GROUP}{The species gear group}
+#'   \item{SPECIES_GEAR_GROUP_ORDER}{The species gear group order}
+#' }
+#' @export
+
+"REF_SPECIES_GEAR_GROUPS"
+
 #' The reference effort types
 #'
 #' @format

@@ -253,10 +253,9 @@ REF_QUALITY_LEVELS =
 
 usethis::use_data(REF_QUALITY_LEVELS, overwrite = TRUE, compress = "gzip")
 
-
 ### Gear groups
 REF_GEAR_GROUPS =
-  tabular_query(
+  tabular_query( # The content of this table differs between T1 and dbSTAT
     DB_STAT(), "
     SELECT
       GearGrpCode AS CODE,
@@ -274,10 +273,10 @@ usethis::use_data(REF_GEAR_GROUPS, overwrite = TRUE, compress = "gzip")
 
 ### Gears
 REF_GEARS =
-  tabular_query(
+  tabular_query( # The structure of this table differs between T1 and dbSTAT
     DB_STAT(), "
     SELECT
-        G.GearCode AS CODE,
+      G.GearCode AS CODE,
     	GG.GearGrpCode AS GEAR_GROUP_CODE,
     	G.Gear AS NAME_EN,
     	G.Discards AS DISCARDS
@@ -294,6 +293,34 @@ REF_GEARS =
   )
 
 usethis::use_data(REF_GEARS, overwrite = TRUE, compress = "gzip")
+
+### Species gear groups
+REF_SPECIES_GEAR_GROUPS =
+  tabular_query(
+    DB_T1(), "
+    SELECT
+    	S.Alfa3FAO AS SPECIES_CODE,
+    	GG.GearGrpCode AS GEAR_GROUP_CODE,
+    	GGS.SpGearGroup AS SPECIES_GEAR_GROUP,
+    	GGS.SpGearGroupOrder AS SPECIES_GEAR_GROUP_ORDER
+    FROM
+      [dbo].[GearGrpBySpecies] GGS
+    INNER JOIN
+      [dbo].Species S
+    ON
+      GGS.SpeciesID = S.SpeciesID
+    INNER JOIN
+      [dbo].GearGroups GG
+    ON
+      GGS.GearGroupID = GG.GearGroupID
+    ORDER BY
+    	1, 4
+    "
+  )
+
+REF_SPECIES_GEAR_GROUPS = rbind(REF_SPECIES_GEAR_GROUPS)
+
+usethis::use_data(REF_SPECIES_GEAR_GROUPS, overwrite = TRUE, compress = "gzip")
 
 ### Effort types
 REF_EFFORT_TYPES =
