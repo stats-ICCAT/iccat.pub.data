@@ -4,12 +4,18 @@
 \alias{catalogue.compile}
 \title{TBD - temporarily export-ed}
 \usage{
-catalogue.compile(fishery_ranks_data, catalogue_data)
+catalogue.compile(
+  fishery_ranks_data,
+  catalogue_data,
+  pretty_print_catches = TRUE
+)
 }
 \arguments{
 \item{fishery_ranks_data}{TBD}
 
 \item{catalogue_data}{TBD}
+
+\item{pretty_print_catches}{TBD}
 }
 \value{
 TBD

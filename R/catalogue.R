@@ -2,9 +2,10 @@
 #'
 #' @param fishery_ranks_data TBD
 #' @param catalogue_data TBD
+#' @param pretty_print_catches TBD
 #' @return TBD
 #' @export
-catalogue.compile = function(fishery_ranks_data, catalogue_data) {
+catalogue.compile = function(fishery_ranks_data, catalogue_data, pretty_print_catches = TRUE) {
   if(is.null(fishery_ranks_data) || nrow(fishery_ranks_data) == 0) stop("No fishery ranks data available!")
   if(is.null(catalogue_data)     || nrow(catalogue_data) == 0)     stop("No catalogue data available!")
 
@@ -28,7 +29,15 @@ catalogue.compile = function(fishery_ranks_data, catalogue_data) {
   CA_ALL[!is.na(QtyCS), Score := paste0(Score, "c")]
   CA_ALL[Score == "", Score := "-1"]
 
-  CA_final = CA_ALL[, .(Species, Stock, FlagName, Status, GearGrp, DSet = "t1", Year, Value = ifelse(is.na(QtyNC), NA_character_, str_trim(format(round(QtyNC, 0), big.mark = ","))))]
+  if(pretty_print_catches)
+    CA_final = CA_ALL[, .(Species, Stock, FlagName, Status, GearGrp, DSet = "t1", Year, Value = ifelse(is.na(QtyNC),
+                                                                                                       NA_character_,
+                                                                                                       str_trim(format(round(QtyNC, 0), big.mark = ","))))]
+  else
+    CA_final = CA_ALL[, .(Species, Stock, FlagName, Status, GearGrp, DSet = "t1", Year, Value = ifelse(is.na(QtyNC),
+                                                                                                       NA_character_,
+                                                                                                       str_trim(as.character(round(QtyNC, 0)))))]
+
   CA_final = rbind(CA_final, CA_ALL[, .(Species, Stock, FlagName, Status, GearGrp, DSet = "t2", Year, Value = Score)])
 
   start = Sys.time()
