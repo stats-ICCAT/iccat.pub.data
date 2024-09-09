@@ -7,7 +7,10 @@
 catalogue.compile(
   fishery_ranks_data,
   catalogue_data,
-  pretty_print_catches = TRUE
+  year_from = NA,
+  year_to = NA,
+  pretty_print_catches = TRUE,
+  rounding = 0
 )
 }
 \arguments{
@@ -15,7 +18,13 @@ catalogue.compile(
 
 \item{catalogue_data}{TBD}
 
+\item{year_from}{TBD}
+
+\item{year_to}{TBD}
+
 \item{pretty_print_catches}{TBD}
+
+\item{rounding}{TBD}
 }
 \value{
 TBD

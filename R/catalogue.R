@@ -2,10 +2,13 @@
 #'
 #' @param fishery_ranks_data TBD
 #' @param catalogue_data TBD
+#' @param year_from TBD
+#' @param year_to TBD
 #' @param pretty_print_catches TBD
+#' @param rounding TBD
 #' @return TBD
 #' @export
-catalogue.compile = function(fishery_ranks_data, catalogue_data, pretty_print_catches = TRUE) {
+catalogue.compile = function(fishery_ranks_data, catalogue_data, year_from = NA, year_to = NA, pretty_print_catches = TRUE, rounding = 0) {
   if(is.null(fishery_ranks_data) || nrow(fishery_ranks_data) == 0) stop("No fishery ranks data available!")
   if(is.null(catalogue_data)     || nrow(catalogue_data) == 0)     stop("No catalogue data available!")
 
@@ -32,13 +35,24 @@ catalogue.compile = function(fishery_ranks_data, catalogue_data, pretty_print_ca
   if(pretty_print_catches)
     CA_final = CA_ALL[, .(Species, Stock, FlagName, Status, GearGrp, DSet = "t1", Year, Value = ifelse(is.na(QtyNC),
                                                                                                        NA_character_,
-                                                                                                       str_trim(format(round(QtyNC, 0), big.mark = ","))))]
+                                                                                                       str_trim(format(round(QtyNC, rounding), big.mark = ","))))]
   else
     CA_final = CA_ALL[, .(Species, Stock, FlagName, Status, GearGrp, DSet = "t1", Year, Value = ifelse(is.na(QtyNC),
                                                                                                        NA_character_,
-                                                                                                       str_trim(as.character(round(QtyNC, 0)))))]
+                                                                                                       str_trim(as.character(round(QtyNC, rounding)))))]
 
   CA_final = rbind(CA_final, CA_ALL[, .(Species, Stock, FlagName, Status, GearGrp, DSet = "t2", Year, Value = Score)])
+
+  year_from = ifelse(is.na(year_from), as.integer(as.character(min(CA_final$Year))), year_from)
+  year_to   = ifelse(is.na(year_to),   as.integer(as.character(max(CA_final$Year))), year_to)
+
+  CA_final$Year =
+    factor(
+      CA_final$Year,
+      levels = year_from:year_to,
+      labels = year_from:year_to,
+      ordered = TRUE
+    )
 
   start = Sys.time()
 
@@ -54,7 +68,7 @@ catalogue.compile = function(fishery_ranks_data, catalogue_data, pretty_print_ca
   start = Sys.time()
 
   CA_W = merge(FR[, .(Species, Stock, FlagName, Status, GearGrp, FisheryRank,
-                      TotCatches = round(Qty, 0), Perc = round(avgQtyRatio * 100, 2), PercCum = round(avgQtyRatioCum * 100, 2))], CA_final_w,
+                      TotCatches = round(Qty, rounding), Perc = round(avgQtyRatio * 100, 2), PercCum = round(avgQtyRatioCum * 100, 2))], CA_final_w,
                by = c("Species", "Stock", "FlagName", "Status", "GearGrp"),
                all.x = TRUE, all.y = FALSE,
                sort = FALSE)
