@@ -10,7 +10,8 @@ catalogue.compile(
   year_from = NA,
   year_to = NA,
   pretty_print_catches = TRUE,
-  rounding = 0
+  catch_round_digits = 0,
+  perc_round_digits = 2
 )
 }
 \arguments{
@@ -24,7 +25,9 @@ catalogue.compile(
 
 \item{pretty_print_catches}{TBD}
 
-\item{rounding}{TBD}
+\item{catch_round_digits}{TBD}
+
+\item{perc_round_digits}{TBD}
 }
 \value{
 TBD

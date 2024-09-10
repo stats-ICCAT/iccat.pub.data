@@ -5,10 +5,11 @@
 #' @param year_from TBD
 #' @param year_to TBD
 #' @param pretty_print_catches TBD
-#' @param rounding TBD
+#' @param catch_round_digits TBD
+#' @param perc_round_digits TBD
 #' @return TBD
 #' @export
-catalogue.compile = function(fishery_ranks_data, catalogue_data, year_from = NA, year_to = NA, pretty_print_catches = TRUE, rounding = 0) {
+catalogue.compile = function(fishery_ranks_data, catalogue_data, year_from = NA, year_to = NA, pretty_print_catches = TRUE, catch_round_digits = 0, perc_round_digits = 2) {
   if(is.null(fishery_ranks_data) || nrow(fishery_ranks_data) == 0) stop("No fishery ranks data available!")
   if(is.null(catalogue_data)     || nrow(catalogue_data) == 0)     stop("No catalogue data available!")
 
@@ -32,14 +33,21 @@ catalogue.compile = function(fishery_ranks_data, catalogue_data, year_from = NA,
   CA_ALL[!is.na(QtyCS), Score := paste0(Score, "c")]
   CA_ALL[Score == "", Score := "-1"]
 
-  if(pretty_print_catches)
+  if(catch_round_digits == 0) {
     CA_final = CA_ALL[, .(Species, Stock, FlagName, Status, GearGrp, DSet = "t1", Year, Value = ifelse(is.na(QtyNC),
                                                                                                        NA_character_,
-                                                                                                       str_trim(format(round(QtyNC, rounding), big.mark = ","))))]
-  else
+                                                                                                       str_trim(formatC(QtyNC,
+                                                                                                                        format = "d",
+                                                                                                                        big.mark = ifelse(pretty_print_catches, ",", "")))))]
+  } else {
     CA_final = CA_ALL[, .(Species, Stock, FlagName, Status, GearGrp, DSet = "t1", Year, Value = ifelse(is.na(QtyNC),
                                                                                                        NA_character_,
-                                                                                                       str_trim(as.character(round(QtyNC, rounding)))))]
+                                                                                                       str_trim(formatC(QtyNC,
+                                                                                                                        format = "f",
+                                                                                                                        digits = catch_round_digits,
+                                                                                                                        big.mark = ifelse(pretty_print_catches, ",", "")))))]
+
+  }
 
   CA_final = rbind(CA_final, CA_ALL[, .(Species, Stock, FlagName, Status, GearGrp, DSet = "t2", Year, Value = Score)])
 
@@ -68,7 +76,9 @@ catalogue.compile = function(fishery_ranks_data, catalogue_data, year_from = NA,
   start = Sys.time()
 
   CA_W = merge(FR[, .(Species, Stock, FlagName, Status, GearGrp, FisheryRank,
-                      TotCatches = round(Qty, rounding), Perc = round(avgQtyRatio * 100, 2), PercCum = round(avgQtyRatioCum * 100, 2))], CA_final_w,
+                      TotCatches = round(Qty, catch_round_digits),
+                      Perc = round(avgQtyRatio * 100, perc_round_digits),
+                      PercCum = round(avgQtyRatioCum * 100, perc_round_digits))], CA_final_w,
                by = c("Species", "Stock", "FlagName", "Status", "GearGrp"),
                all.x = TRUE, all.y = FALSE,
                sort = FALSE)
