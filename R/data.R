@@ -258,6 +258,16 @@
 #' @export
 "REF_STOCK_AREAS"
 
+#' The reference stock areas (simplified)
+#'
+#' @format
+#' \describe{
+#'   \item{CODE}{The stock area code}
+#'   \item{NAME_EN}{The stock area English name}
+#' }
+#' @export
+"REF_STOCK_AREAS_SIMPLIFIED"
+
 #' The product types
 #'
 #' @format

@@ -480,7 +480,42 @@ REF_STOCK_AREAS =
     "
   )
 
-usethis::use_data(REF_STOCK_AREAS, overwrite = TRUE, compress = "gzip")
+### Stock areas (simplified)
+REF_STOCK_AREAS_SIMPLIFIED =
+  data.table(
+    CODE =
+      c("A+M",
+        "ATL",
+        "ATW",
+        "ATE",
+        "ATN",
+        "ANW",
+        "ANE",
+        "ATS",
+        "ASW",
+        "ASE",
+        "MED",
+        "UNK"
+      )
+    ,
+    NAME_EN =
+      c(
+        "All ICCAT convention area",
+        "Atlantic Ocean",
+        "Western Atlantic Ocean",
+        "Eastern Atlantic Ocean",
+        "Northern Atlantic Ocean",
+        "Northwestern Atlantic Ocean",
+        "Northeastern Atlantic Ocean",
+        "Southern Atlantic Ocean",
+        "Southwestern Atlantic Ocean",
+        "Southeastern Atlantic Ocean",
+        "Mediterranean sea",
+        "Unknown"
+      )
+  )
+
+usethis::use_data(REF_STOCK_AREAS_SIMPLIFIED, overwrite = TRUE, compress = "gzip")
 
 ### Product types
 REF_PRODUCT_TYPES =
