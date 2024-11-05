@@ -217,7 +217,7 @@ usethis::use_data(REF_AREAS, overwrite = TRUE, compress = "gzip")
 ### Sampling areas
 REF_SAMPLING_AREAS =
   tabular_query(
-    DB_GIS(server = "ATENEA\\SQL22"), "
+    DB_GIS(), "
     SELECT
       CODE,
     	NAME_EN

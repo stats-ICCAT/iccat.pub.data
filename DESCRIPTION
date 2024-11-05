@@ -1,16 +1,14 @@
 Package: iccat.pub.data
 Type: Package
-Title: TBD
+Title: ICCAT public data libraries
 Version: 0.2.0
 Author: ICCAT Secretariat
 Maintainer: Fabio Fiorellato <fabio.fiorellato@iccat.int>
-Description: TBD
-    TBD.
+Description: A set of reference data constants meant for public usage and modeling the core ICCAT reference data, plus a collection of functions to handle the generation of SCRS catalogues, stock summaries, and T1NC derived artifacts.
 License: TBD
 Encoding: UTF-8
 LazyData: true
 Depends: 
     data.table,
-    dplyr,
-    R (>= 2.10)
+    dplyr
 RoxygenNote: 7.3.1
