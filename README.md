@@ -122,7 +122,7 @@ T1NC_summary = t1nc.summarise(T1NC, by_species = TRUE, by_gear = TRUE, by_stock 
 > View(T1NC_summary$grouped)
 ```
 ![image](https://github.com/user-attachments/assets/469dc26d-50f5-4077-b457-a880d2b1c722)
-#### Producing a T1NC data summary since 1994 (included) for Albacore tuna by stock and fleet only, including catch ranks (absolute and cumulative) for each stratum
+#### Producing a T1NC data summary for Albacore tuna by stock and fleet only, including catch ranks (absolute and cumulative) for each stratum since 1994 (included) 
 ```
 # T1NC = t1nc() # Requires access to the iccat.dev.data library
 
