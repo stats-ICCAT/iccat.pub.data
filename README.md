@@ -50,6 +50,12 @@ Each of the following artifacts (hereby referenced by their object name) represe
 + `REF_FREQUENCY_TYPES`
 + `REF_SIZE_CLASS_LIMITS`
 
+Each `REF_xyz` object should be properly described within the `R\data.R` file and explicitly exported to be visible to the library consumers.
+
+E.g.,: 
+
+![image](https://github.com/user-attachments/assets/b07e8a37-1e28-4da4-bfae-e83cb46274f8)
+
 > See each exported item for its description and structure
 
 ## External dependencies (CRAN) <a name="external_deps"></a>
