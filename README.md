@@ -50,7 +50,7 @@ Each of the following artifacts (hereby referenced by their object name) represe
 + `REF_FREQUENCY_TYPES`
 + `REF_SIZE_CLASS_LIMITS`
 
-Each `REF_xyz` object should be properly described within the `R\data.R` file and explicitly exported to be visible to the library consumers.
+Each `REF_xyz` object should be properly described within the [`R\data.R`](https://github.com/stats-ICCAT/iccat.pub.data/blob/main/R/data.R) file and explicitly exported to be visible to the library consumers.
 
 E.g.,: 
 
