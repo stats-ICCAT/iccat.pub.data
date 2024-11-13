@@ -10,7 +10,7 @@
 #' @param perc_round_digits the number of digits percentages should be rounded to
 #' @return a catalogue table combining the fishery ranks and base catalogue data and filtered according to the specified criteria
 #' @export
-catalogue.compile = function(fishery_ranks_data, catalogue_data, year_from = NA, year_to = NA, pretty_print_catches = TRUE, catch_round_digits = 0, perc_round_digits = 2) {
+catalogue.compile = function(fishery_ranks_data, catalogue_data, year_from = 1950, year_to = NA, pretty_print_catches = TRUE, catch_round_digits = 0, perc_round_digits = 2) {
   if(is.null(fishery_ranks_data) || nrow(fishery_ranks_data) == 0) stop("No fishery ranks data available!")
   if(is.null(catalogue_data)     || nrow(catalogue_data) == 0)     stop("No catalogue data available!")
 
@@ -65,7 +65,7 @@ catalogue.compile = function(fishery_ranks_data, catalogue_data, year_from = NA,
 
   start = Sys.time()
 
-  CA_final_w = dcast.data.table(CA_final,
+  CA_final_w = dcast.data.table(CA_final[!is.na(Year)],
                                 formula = Species + Stock + FlagName + Status + GearGrp + DSet ~ Year,
                                 value.var = "Value",
                                 drop = c(TRUE, FALSE))
