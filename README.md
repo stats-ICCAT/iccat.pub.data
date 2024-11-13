@@ -17,7 +17,7 @@ Nevertheless, the script (not exported with the library) that updates the refere
 3) Species' stock data and metadata
   + The library provides functions to extract stock metadata and summary information for one or more species
   
-## Reference data artifacts exported by the library
+## Reference data artifacts exported by the library <a name="reference_data"></a>
 
 Each of the following artifacts (hereby referenced by their object name) represents the content (as an R `data.table`) of a reference data table included in one of the ICCAT databases (generally, `DATABASE_T1`) with standardized column names.
 
@@ -81,7 +81,7 @@ install_github("stats-ICCAT/iccat.pub.data")
 
 # Updating the reference data
 
-This repository also includes a script ([`data-raw\initialize_reference_data.R`](https://github.com/stats-ICCAT/iccat.pub.data/blob/main/data-raw/initialize_reference_data.R) which takes care - when explicitly executed - of extracting reference data from the standard ICCAT databases and update the exported [reference data objects]().
+This repository also includes a script ([`data-raw\initialize_reference_data.R`](https://github.com/stats-ICCAT/iccat.pub.data/blob/main/data-raw/initialize_reference_data.R) which takes care - when explicitly executed - of extracting reference data from the standard ICCAT databases and update the exported [reference data objects](#reference_data).
 The script is **not** exported with the library, requires loading the `iccat.dev.base` library, and can be run only by users that have read access to the ICCAT databases.
 
 This script needs to be extended every time a new reference data is added to the list, and the [`R\data.R`](https://github.com/stats-ICCAT/iccat.pub.data/blob/main/R/data.R) script should then updated accordingly, to include the new object to be exported, and describe its content.
