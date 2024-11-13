@@ -1,12 +1,16 @@
-#' TBD
+#' Produces a summary (wide) table of nominal catches grouped by year and stratified by
+#' several criteria, such as species, stock, gear, catch type, with the possible inclusion
+#' of fishery ranks for each stratum
 #'
-#' @param t1nc_data TBD
-#' @param by_species TBD
-#' @param by_stock TBD
-#' @param by_gear TBD
-#' @param by_catch_type TBD
-#' @param rank TBD
-#' @return TBD
+#' @param t1nc_data the original T1NC data, in long form, and with the same structure as the data that can be retrieved using the \link{\code{t1nc}} function of the iccat.dev.data library
+#' @param year_min the starting year to be included in the output
+#' @param year_max the ending year to be included in the output
+#' @param by_species whether or not the output stratification shall include species codes
+#' @param by_stock whether or not the output stratification shall include stock codes
+#' @param by_gear whether or not the output stratification shall include gear group codes
+#' @param by_catch_type whether or not the output stratification shall include catch type codes
+#' @param rank whether or not to produce the average catch ratio (absolute / cumulative) for each strata
+#' @return a wide table of nominal catches grouped by year and stratified according to the chosen criteria
 #' @export
 t1nc.summarise = function(t1nc_data, year_min = NA, year_max = NA,
                           by_species = TRUE, by_stock = TRUE, by_gear = TRUE, by_catch_type = TRUE,

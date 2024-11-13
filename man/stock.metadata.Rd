@@ -2,16 +2,20 @@
 % Please edit documentation in R/stocks.R
 \name{stock.metadata}
 \alias{stock.metadata}
-\title{TBD}
+\title{Retrieves stock metadata for one or more species.
+These include a table with stock / statistical / sampling area code for each species, and an overall summary of
+their cardinality}
 \usage{
 stock.metadata(species_codes = NULL)
 }
 \arguments{
-\item{species_codes}{TBD}
+\item{species_codes}{one or more species codes}
 }
 \value{
-TBD
+a list of metadata describing the stocks for the provided species codes
 }
 \description{
-TBD
+Retrieves stock metadata for one or more species.
+These include a table with stock / statistical / sampling area code for each species, and an overall summary of
+their cardinality
 }

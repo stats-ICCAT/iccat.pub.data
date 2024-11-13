@@ -1,13 +1,14 @@
-#' TBD - temporarily export-ed
+#' Combines fishery ranks data and base catalogue data to produce a table with the same structure as the information
+#' included in the SCRS summary catalogue
 #'
-#' @param fishery_ranks_data TBD
-#' @param catalogue_data TBD
-#' @param year_from TBD
-#' @param year_to TBD
-#' @param pretty_print_catches TBD
-#' @param catch_round_digits TBD
-#' @param perc_round_digits TBD
-#' @return TBD
+#' @param fishery_ranks_data fishery ranks data retrieved using the \link{\code{}} function provided by the iccat.dev.data library
+#' @param catalogue_data catalogue base data retrieved using the \link{\code{}} function provided by the iccat.dev.data library
+#' @param year_from to limit the output to data from a given starting year only
+#' @param year_to to limit the output to data up to a given ending year only
+#' @param pretty_print_catches if catch values should be _pretty printed_, i.e., presented using a comma as thousands separator
+#' @param catch_round_digits the number of digits catches should be rounded to
+#' @param perc_round_digits the number of digits percentages should be rounded to
+#' @return a catalogue table combining the fishery ranks and base catalogue data and filtered according to the specified criteria
 #' @export
 catalogue.compile = function(fishery_ranks_data, catalogue_data, year_from = NA, year_to = NA, pretty_print_catches = TRUE, catch_round_digits = 0, perc_round_digits = 2) {
   if(is.null(fishery_ranks_data) || nrow(fishery_ranks_data) == 0) stop("No fishery ranks data available!")
@@ -90,23 +91,24 @@ catalogue.compile = function(fishery_ranks_data, catalogue_data, year_from = NA,
   return(CA_W)
 }
 
-split_rows = function(table, max_rows = 60) {
-  rows = data.table(min_row = integer(), max_row = integer())
-
-  for(r in seq(1, nrow(catalogue), 60))
-    rows = rbind(rows, data.table(min_row = r, max_row = min(r + max_rows - 1, nrow(table))))
-
-  return(rows)
-}
-
-#' TBD
+#' Splits a catalogue table, as produced by \link{\code{catalogue.compile}}, in multiple tables with a set number of rows each
 #'
-#' @param catalogue TBD
-#' @param max_rows TBD
-#' @return TBD
+#' @param catalogue a catalogue table
+#' @param max_rows the maximum number of rows to be included in each _slice_
+#' @return a list of catalogue tables each of which is a subset of the original one and consists of _max_rows_ rows at maximum.
+#' THe  _union_ of these subset tables will result in the original table.
 #' @export
 catalogue.split = function(catalogue, max_rows = 60) {
   rows = split_rows(catalogue, max_rows)
 
   return(apply(rows, 1, function(row) { catalogue[row[1]:row[2]] }))
+}
+
+split_rows = function(table, max_rows = 60) {
+  rows = data.table(min_row = integer(), max_row = integer())
+
+  for(r in seq(1, nrow(table), max_rows))
+    rows = rbind(rows, data.table(min_row = r, max_row = min(r + max_rows - 1, nrow(table))))
+
+  return(rows)
 }

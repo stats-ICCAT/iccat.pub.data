@@ -2,7 +2,8 @@
 % Please edit documentation in R/catalogue.R
 \name{catalogue.compile}
 \alias{catalogue.compile}
-\title{TBD - temporarily export-ed}
+\title{Combines fishery ranks data and base catalogue data to produce a table with the same structure as the information
+included in the SCRS summary catalogue}
 \usage{
 catalogue.compile(
   fishery_ranks_data,
@@ -15,23 +16,24 @@ catalogue.compile(
 )
 }
 \arguments{
-\item{fishery_ranks_data}{TBD}
+\item{fishery_ranks_data}{fishery ranks data retrieved using the \link{\code{}} function provided by the iccat.dev.data library}
 
-\item{catalogue_data}{TBD}
+\item{catalogue_data}{catalogue base data retrieved using the \link{\code{}} function provided by the iccat.dev.data library}
 
-\item{year_from}{TBD}
+\item{year_from}{to limit the output to data from a given starting year only}
 
-\item{year_to}{TBD}
+\item{year_to}{to limit the output to data up to a given ending year only}
 
-\item{pretty_print_catches}{TBD}
+\item{pretty_print_catches}{if catch values should be _pretty printed_, i.e., presented using a comma as thousands separator}
 
-\item{catch_round_digits}{TBD}
+\item{catch_round_digits}{the number of digits catches should be rounded to}
 
-\item{perc_round_digits}{TBD}
+\item{perc_round_digits}{the number of digits percentages should be rounded to}
 }
 \value{
-TBD
+a catalogue table combining the fishery ranks and base catalogue data and filtered according to the specified criteria
 }
 \description{
-TBD - temporarily export-ed
+Combines fishery ranks data and base catalogue data to produce a table with the same structure as the information
+included in the SCRS summary catalogue
 }

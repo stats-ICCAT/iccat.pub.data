@@ -177,7 +177,6 @@
 #'   \item{SPECIES_GEAR_GROUP_ORDER}{The species gear group order}
 #' }
 #' @export
-
 "REF_SPECIES_GEAR_GROUPS"
 
 #' The reference effort types

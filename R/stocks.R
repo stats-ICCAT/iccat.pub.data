@@ -1,7 +1,9 @@
-#' TBD
+#' Retrieves stock metadata for one or more species.
+#' These include a table with stock / statistical / sampling area code for each species, and an overall summary of
+#' their cardinality
 #'
-#' @param species_codes TBD
-#' @return TBD
+#' @param species_codes one or more species codes
+#' @return a list of metadata describing the stocks for the provided species codes
 #' @export
 stock.metadata = function(species_codes = NULL) {
   stock_data = REF_STOCKS
@@ -21,10 +23,11 @@ stock.metadata = function(species_codes = NULL) {
   )
 }
 
-#' TBD
+#' Retrieves stock summary data for one or more species as a table including the stock codes and the number of
+#' statistical area codes and sampling areas for each of them
 #'
-#' @param species_codes TBD
-#' @return TBD
+#' @param species_codes one or more species codes
+#' @return a table describing the structure of the stocks for the provided species codes#'
 #' @export
 stock.summary = function(species_codes = NULL) {
   stock_data = REF_STOCKS

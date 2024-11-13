@@ -1,5 +1,9 @@
 library(iccat.dev.base)
 
+# This script is not exported with the library, but its execution is necessary to create / update all the
+# reference data table by extracting the required information from the ICCAT databases.
+# For this reason, while this library does not depend from iccat.dev.base, this script does.
+
 ### Data sources
 REF_DATA_SOURCES =
   tabular_query(

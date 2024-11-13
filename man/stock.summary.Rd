@@ -2,16 +2,18 @@
 % Please edit documentation in R/stocks.R
 \name{stock.summary}
 \alias{stock.summary}
-\title{TBD}
+\title{Retrieves stock summary data for one or more species as a table including the stock codes and the number of
+statistical area codes and sampling areas for each of them}
 \usage{
 stock.summary(species_codes = NULL)
 }
 \arguments{
-\item{species_codes}{TBD}
+\item{species_codes}{one or more species codes}
 }
 \value{
-TBD
+a table describing the structure of the stocks for the provided species codes#'
 }
 \description{
-TBD
+Retrieves stock summary data for one or more species as a table including the stock codes and the number of
+statistical area codes and sampling areas for each of them
 }

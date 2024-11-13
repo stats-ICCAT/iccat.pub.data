@@ -2,7 +2,9 @@
 % Please edit documentation in R/t1nc.R
 \name{t1nc.summarise}
 \alias{t1nc.summarise}
-\title{TBD}
+\title{Produces a summary (wide) table of nominal catches grouped by year and stratified by
+several criteria, such as species, stock, gear, catch type, with the possible inclusion
+of fishery ranks for each stratum}
 \usage{
 t1nc.summarise(
   t1nc_data,
@@ -16,21 +18,27 @@ t1nc.summarise(
 )
 }
 \arguments{
-\item{t1nc_data}{TBD}
+\item{t1nc_data}{the original T1NC data, in long form, and with the same structure as the data that can be retrieved using the \link{\code{t1nc}} function of the iccat.dev.data library}
 
-\item{by_species}{TBD}
+\item{year_min}{the starting year to be included in the output}
 
-\item{by_stock}{TBD}
+\item{year_max}{the ending year to be included in the output}
 
-\item{by_gear}{TBD}
+\item{by_species}{whether or not the output stratification shall include species codes}
 
-\item{by_catch_type}{TBD}
+\item{by_stock}{whether or not the output stratification shall include stock codes}
 
-\item{rank}{TBD}
+\item{by_gear}{whether or not the output stratification shall include gear group codes}
+
+\item{by_catch_type}{whether or not the output stratification shall include catch type codes}
+
+\item{rank}{whether or not to produce the average catch ratio (absolute / cumulative) for each strata}
 }
 \value{
-TBD
+a wide table of nominal catches grouped by year and stratified according to the chosen criteria
 }
 \description{
-TBD
+Produces a summary (wide) table of nominal catches grouped by year and stratified by
+several criteria, such as species, stock, gear, catch type, with the possible inclusion
+of fishery ranks for each stratum
 }
