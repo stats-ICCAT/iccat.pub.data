@@ -19,7 +19,7 @@ Nevertheless, the script (not exported with the library) that updates the refere
   
 ## Reference data artifacts exported by the library
 
-Each of the following artifacts (hereby referenced by their object name) represents the content (as an R `data.table`) of a reference data table included in one of the ICCAT databases (generally, \code{\link{DATABASE_T1}}) with standardized column names.
+Each of the following artifacts (hereby referenced by their object name) represents the content (as an R `data.table`) of a reference data table included in one of the ICCAT databases (generally, `DATABASE_T1`) with standardized column names.
 
 + `REF_DATA_SOURCES`
 + `REF_DATA_SOURCE_CONTENTS`
@@ -50,6 +50,12 @@ Each of the following artifacts (hereby referenced by their object name) represe
 + `REF_FREQUENCY_TYPES`
 + `REF_SIZE_CLASS_LIMITS`
 
+Each `REF_xyz` object should be properly described within the `R\data.R` file and explicitly exported to be visible to the library consumers.
+
+E.g.,: 
+
+![image](https://github.com/user-attachments/assets/b07e8a37-1e28-4da4-bfae-e83cb46274f8)
+
 > See each exported item for its description and structure
 
 ## External dependencies (CRAN) <a name="external_deps"></a>
@@ -62,7 +68,7 @@ install.packages(c("data.table", "dplyr", "stringr"))
 ```
 
 ## Internal dependencies <a name="internal_deps"></a>
-+ [iccat.dev.data](https://github.com/stats-ICCAT/iccat.dev.data) 
++ [iccat.dev.data](https://github.com/stats-ICCAT/iccat.dev.data) [`OPTIONAL`]
 
 This dependency is only required if we need to update the reference data (but not to use the library by itself). In this case, please ensure to follow the steps for the installation of all internal / external requirements for the `iccat.dev.data` library as available [here](https://github.com/stats-ICCAT/iccat.dev.data/?tab=readme-ov-file#external-dependencies-cran-).
 
@@ -75,10 +81,10 @@ install_github("stats-ICCAT/iccat.pub.data")
 
 # Updating the reference data
 
-This repository also includes a script (`data-raw\initialize_reference_data.R`) which takes care - when explicitly executed - of extracting reference data from the standard ICCAT databases and update the exported [reference data objects]().
+This repository also includes a script ([`data-raw\initialize_reference_data.R`](https://github.com/stats-ICCAT/iccat.pub.data/blob/main/data-raw/initialize_reference_data.R) which takes care - when explicitly executed - of extracting reference data from the standard ICCAT databases and update the exported [reference data objects]().
 The script is **not** exported with the library, requires loading the `iccat.dev.base` library, and can be run only by users that have read access to the ICCAT databases.
 
-This script needs to be extended every time a new reference data is added to the list, and the `R\data.R` script should then updated accordingly, to include the new object to be exported, and describe its content.
+This script needs to be extended every time a new reference data is added to the list, and the [`R\data.R`](https://github.com/stats-ICCAT/iccat.pub.data/blob/main/R/data.R) script should then updated accordingly, to include the new object to be exported, and describe its content.
 
 Updates to the reference data shall be performed *before* building the library, otherwise the updated artifacts will not be included in the package.
 
@@ -114,33 +120,48 @@ library(iccat.pub.data)
 
 T1NC_summary = t1nc.summarise(T1NC, by_species = TRUE, by_gear = TRUE, by_stock = FALSE, by_catch_type = FALSE)
 ```
-
+```
+> View(T1NC_summary$grouped)
+```
+![image](https://github.com/user-attachments/assets/469dc26d-50f5-4077-b457-a880d2b1c722)
 #### Producing a T1NC data summary since 1994 (included) for Albacore tuna by stock and fleet only, including catch ranks (absolute and cumulative) for each stratum
 ```
 # T1NC = t1nc() # Requires access to the iccat.dev.data library
 
 T1NC_summary_ALB = t1nc.summarise(T1NC[Species == "ALB"], year_min = 1994, by_species = FALSE, by_gear = FALSE, by_stock = TRUE, by_catch_type = FALSE, rank = TRUE)
 ```
+```
+> View(T1NC_summary_ALB$grouped)
+```
+![image](https://github.com/user-attachments/assets/511fa695-9407-4fed-809d-d81fddd03ae0)
 
 ### T1 + T2 SCRS catalogue
 
-> To run these examples we assume that the `SCRS_FR` and `SCRS_CA` objects contains fishery ranks and catalogue base data as retrieved using the `iccat.dev.data::catalogue.fn_getT1NC_fisheryRanks` and `iccat.dev.data::catalogue.fn_genT1NC_CatalSCRS` functions, respectively.
+> To run these examples we assume that the `FR` and `CA` objects contain fishery ranks and base catalogue data as retrieved using the `iccat.dev.data::catalogue.fn_getT1NC_fisheryRanks` and `iccat.dev.data::catalogue.fn_genT1NC_CatalSCRS` functions, respectively.
 
-#### Producing the T1 + T2 SCRS catalogue for all species
+#### Producing the T1 + T2 SCRS catalogue for all species from 1950 onwards
 ```
 # FR = catalogue.fn_getT1NC_fisheryRanks() # Requires access to the iccat.dev.data library
 # CA = catalogue.fn_genT1NC_CatalSCRS()    # Requires access to the iccat.dev.data library
 
-CAT_1994 = catalogue.compile(FR, CA) 
+CAT = catalogue.compile(FR, CA, year_from = 1950) 
 ```
+```
+> View(CAT)
+```
+![image](https://github.com/user-attachments/assets/542894bf-b258-44a6-807a-aec510b37afc)
 
 #### Producing the T1 + T2 SCRS catalogue for all species from 1994 onwards
 ```
-# FR_ALB = catalogue.fn_getT1NC_fisheryRanks(species_codes = "ALB") # Requires access to the iccat.dev.data library
-# CA_ALB = catalogue.fn_genT1NC_CatalSCRS(species_codes = "ALB")    # Requires access to the iccat.dev.data library
+# FR = catalogue.fn_getT1NC_fisheryRanks(species_codes = "ALB") # Requires access to the iccat.dev.data library
+# CA = catalogue.fn_genT1NC_CatalSCRS(species_codes = "ALB")    # Requires access to the iccat.dev.data library
 
-CAT_ALB_1994 = catalogue.compile(FR_ALB, CA_ALB, year_from = 1994) 
+CAT_ALB_1994 = catalogue.compile(FR, CA, year_from = 1994) 
 ```
+```
+> View(CAT_ALB_1994)
+```
+![image](https://github.com/user-attachments/assets/b798dc27-25e1-47dc-a5d9-91b65e38c67f)
 
 ## Future extensions
 + [ ] ensure that the explicit external dependency from `dplyr` is really needed
