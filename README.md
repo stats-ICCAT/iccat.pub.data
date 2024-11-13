@@ -120,25 +120,36 @@ library(iccat.pub.data)
 
 T1NC_summary = t1nc.summarise(T1NC, by_species = TRUE, by_gear = TRUE, by_stock = FALSE, by_catch_type = FALSE)
 ```
-
+```
+> View(T1NC_summary$grouped)
+```
+![image](https://github.com/user-attachments/assets/469dc26d-50f5-4077-b457-a880d2b1c722)
 #### Producing a T1NC data summary since 1994 (included) for Albacore tuna by stock and fleet only, including catch ranks (absolute and cumulative) for each stratum
 ```
 # T1NC = t1nc() # Requires access to the iccat.dev.data library
 
 T1NC_summary_ALB = t1nc.summarise(T1NC[Species == "ALB"], year_min = 1994, by_species = FALSE, by_gear = FALSE, by_stock = TRUE, by_catch_type = FALSE, rank = TRUE)
 ```
+```
+> View(T1NC_summary_ALB$grouped)
+```
+![image](https://github.com/user-attachments/assets/511fa695-9407-4fed-809d-d81fddd03ae0)
 
 ### T1 + T2 SCRS catalogue
 
 > To run these examples we assume that the `SCRS_FR` and `SCRS_CA` objects contain fishery ranks and base catalogue data as retrieved using the `iccat.dev.data::catalogue.fn_getT1NC_fisheryRanks` and `iccat.dev.data::catalogue.fn_genT1NC_CatalSCRS` functions, respectively.
 
-#### Producing the T1 + T2 SCRS catalogue for all species
+#### Producing the T1 + T2 SCRS catalogue for all species from 1950 onwards
 ```
 # FR = catalogue.fn_getT1NC_fisheryRanks() # Requires access to the iccat.dev.data library
 # CA = catalogue.fn_genT1NC_CatalSCRS()    # Requires access to the iccat.dev.data library
 
-CAT_1994 = catalogue.compile(FR, CA) 
+CAT = catalogue.compile(FR, CA, year_from = 1950) 
 ```
+```
+> View(CAT)
+```
+![image](https://github.com/user-attachments/assets/542894bf-b258-44a6-807a-aec510b37afc)
 
 #### Producing the T1 + T2 SCRS catalogue for all species from 1994 onwards
 ```
@@ -147,6 +158,10 @@ CAT_1994 = catalogue.compile(FR, CA)
 
 CAT_ALB_1994 = catalogue.compile(FR_ALB, CA_ALB, year_from = 1994) 
 ```
+```
+> View(CAT_ALB_1994)
+```
+![image](https://github.com/user-attachments/assets/b798dc27-25e1-47dc-a5d9-91b65e38c67f)
 
 ## Future extensions
 + [ ] ensure that the explicit external dependency from `dplyr` is really needed
