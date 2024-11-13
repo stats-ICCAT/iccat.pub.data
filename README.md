@@ -137,7 +137,7 @@ T1NC_summary_ALB = t1nc.summarise(T1NC[Species == "ALB"], year_min = 1994, by_sp
 
 ### T1 + T2 SCRS catalogue
 
-> To run these examples we assume that the `SCRS_FR` and `SCRS_CA` objects contain fishery ranks and base catalogue data as retrieved using the `iccat.dev.data::catalogue.fn_getT1NC_fisheryRanks` and `iccat.dev.data::catalogue.fn_genT1NC_CatalSCRS` functions, respectively.
+> To run these examples we assume that the `FR` and `CA` objects contain fishery ranks and base catalogue data as retrieved using the `iccat.dev.data::catalogue.fn_getT1NC_fisheryRanks` and `iccat.dev.data::catalogue.fn_genT1NC_CatalSCRS` functions, respectively.
 
 #### Producing the T1 + T2 SCRS catalogue for all species from 1950 onwards
 ```
@@ -153,10 +153,10 @@ CAT = catalogue.compile(FR, CA, year_from = 1950)
 
 #### Producing the T1 + T2 SCRS catalogue for all species from 1994 onwards
 ```
-# FR_ALB = catalogue.fn_getT1NC_fisheryRanks(species_codes = "ALB") # Requires access to the iccat.dev.data library
-# CA_ALB = catalogue.fn_genT1NC_CatalSCRS(species_codes = "ALB")    # Requires access to the iccat.dev.data library
+# FR = catalogue.fn_getT1NC_fisheryRanks(species_codes = "ALB") # Requires access to the iccat.dev.data library
+# CA = catalogue.fn_genT1NC_CatalSCRS(species_codes = "ALB")    # Requires access to the iccat.dev.data library
 
-CAT_ALB_1994 = catalogue.compile(FR_ALB, CA_ALB, year_from = 1994) 
+CAT_ALB_1994 = catalogue.compile(FR, CA, year_from = 1994) 
 ```
 ```
 > View(CAT_ALB_1994)
