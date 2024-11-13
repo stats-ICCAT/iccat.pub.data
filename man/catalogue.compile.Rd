@@ -16,9 +16,9 @@ catalogue.compile(
 )
 }
 \arguments{
-\item{fishery_ranks_data}{fishery ranks data retrieved using the \link{\code{}} function provided by the iccat.dev.data library}
+\item{fishery_ranks_data}{fishery ranks data retrieved using the \code{\link{iccat.dev.data::catalogue.fn_getT1NC_fisheryRanks}} function provided by the iccat.dev.data library}
 
-\item{catalogue_data}{catalogue base data retrieved using the \link{\code{}} function provided by the iccat.dev.data library}
+\item{catalogue_data}{catalogue base data retrieved using the \code{\link{iccat.dev.data::catalogue.fn_genT1NC_CatalSCRS}} function provided by the iccat.dev.data library}
 
 \item{year_from}{to limit the output to data from a given starting year only}
 

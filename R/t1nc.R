@@ -2,7 +2,7 @@
 #' several criteria, such as species, stock, gear, catch type, with the possible inclusion
 #' of fishery ranks for each stratum
 #'
-#' @param t1nc_data the original T1NC data, in long form, and with the same structure as the data that can be retrieved using the \link{\code{t1nc}} function of the iccat.dev.data library
+#' @param t1nc_data the original T1NC data, in long form, and with the same structure as the data that can be retrieved using the \code{\link{iccat.dev.data::t1nc}} function of the iccat.dev.data library
 #' @param year_min the starting year to be included in the output
 #' @param year_max the ending year to be included in the output
 #' @param by_species whether or not the output stratification shall include species codes

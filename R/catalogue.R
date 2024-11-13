@@ -1,8 +1,8 @@
 #' Combines fishery ranks data and base catalogue data to produce a table with the same structure as the information
 #' included in the SCRS summary catalogue
 #'
-#' @param fishery_ranks_data fishery ranks data retrieved using the \link{\code{}} function provided by the iccat.dev.data library
-#' @param catalogue_data catalogue base data retrieved using the \link{\code{}} function provided by the iccat.dev.data library
+#' @param fishery_ranks_data fishery ranks data retrieved using the \code{\link{iccat.dev.data::catalogue.fn_getT1NC_fisheryRanks}} function provided by the iccat.dev.data library
+#' @param catalogue_data catalogue base data retrieved using the \code{\link{iccat.dev.data::catalogue.fn_genT1NC_CatalSCRS}} function provided by the iccat.dev.data library
 #' @param year_from to limit the output to data from a given starting year only
 #' @param year_to to limit the output to data up to a given ending year only
 #' @param pretty_print_catches if catch values should be _pretty printed_, i.e., presented using a comma as thousands separator
@@ -91,7 +91,7 @@ catalogue.compile = function(fishery_ranks_data, catalogue_data, year_from = NA,
   return(CA_W)
 }
 
-#' Splits a catalogue table, as produced by \link{\code{catalogue.compile}}, in multiple tables with a set number of rows each
+#' Splits a catalogue table, as produced by \code{\link{catalogue.compile}}, in multiple tables with a set number of rows each
 #'
 #' @param catalogue a catalogue table
 #' @param max_rows the maximum number of rows to be included in each _slice_

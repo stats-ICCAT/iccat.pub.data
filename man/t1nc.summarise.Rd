@@ -18,7 +18,7 @@ t1nc.summarise(
 )
 }
 \arguments{
-\item{t1nc_data}{the original T1NC data, in long form, and with the same structure as the data that can be retrieved using the \link{\code{t1nc}} function of the iccat.dev.data library}
+\item{t1nc_data}{the original T1NC data, in long form, and with the same structure as the data that can be retrieved using the \code{\link{iccat.dev.data::t1nc}} function of the iccat.dev.data library}
 
 \item{year_min}{the starting year to be included in the output}
 
