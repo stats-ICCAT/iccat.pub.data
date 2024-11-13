@@ -99,12 +99,14 @@ library(iccat.pub.data)
 #### Producing a T1NC data summary by species, fleet, and gear
 ```
 # T1NC = t1nc() # Requires access to the iccat.dev.data library
+
 T1NC_summary = t1nc.summarise(T1NC, by_species = TRUE, by_gear = TRUE, by_stock = FALSE, by_catch_type = FALSE)
 ```
 
-#### Producing a T1NC data summary since 1994 (included) for Albacore tuna only by stock and fleet, including catch ranks (absolute and cumulative) for each stratum
+#### Producing a T1NC data summary since 1994 (included) for Albacore tuna by stock and fleet only, including catch ranks (absolute and cumulative) for each stratum
 ```
 # T1NC = t1nc(species_codes = "ALB") # Requires access to the iccat.dev.data library
+
 T1NC_summary_ALB = t1nc.summarise(T1NC, year_min = 1994, by_species = FALSE, by_gear = FALSE, by_stock = TRUE, by_catch_type = FALSE, rank = TRUE)
 ```
 
