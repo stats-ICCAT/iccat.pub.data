@@ -19,7 +19,7 @@ Nevertheless, the script (not exported with the library) that updates the refere
   
 ## Reference data artifacts exported by the library
 
-Each of the following artifacts (hereby referenced by their object name) represents the content (as an R `data.table`) of a reference data table included in one of the ICCAT databases (generally, \code{\link{DATABASE_T1}}) with standardized column names.
+Each of the following artifacts (hereby referenced by their object name) represents the content (as an R `data.table`) of a reference data table included in one of the ICCAT databases (generally, `DATABASE_T1`) with standardized column names.
 
 + `REF_DATA_SOURCES`
 + `REF_DATA_SOURCE_CONTENTS`
@@ -68,7 +68,7 @@ install.packages(c("data.table", "dplyr", "stringr"))
 ```
 
 ## Internal dependencies <a name="internal_deps"></a>
-+ [iccat.dev.data](https://github.com/stats-ICCAT/iccat.dev.data) 
++ [iccat.dev.data](https://github.com/stats-ICCAT/iccat.dev.data) [`OPTIONAL`]
 
 This dependency is only required if we need to update the reference data (but not to use the library by itself). In this case, please ensure to follow the steps for the installation of all internal / external requirements for the `iccat.dev.data` library as available [here](https://github.com/stats-ICCAT/iccat.dev.data/?tab=readme-ov-file#external-dependencies-cran-).
 
@@ -130,7 +130,7 @@ T1NC_summary_ALB = t1nc.summarise(T1NC[Species == "ALB"], year_min = 1994, by_sp
 
 ### T1 + T2 SCRS catalogue
 
-> To run these examples we assume that the `SCRS_FR` and `SCRS_CA` objects contains fishery ranks and catalogue base data as retrieved using the `iccat.dev.data::catalogue.fn_getT1NC_fisheryRanks` and `iccat.dev.data::catalogue.fn_genT1NC_CatalSCRS` functions, respectively.
+> To run these examples we assume that the `SCRS_FR` and `SCRS_CA` objects contain fishery ranks and base catalogue data as retrieved using the `iccat.dev.data::catalogue.fn_getT1NC_fisheryRanks` and `iccat.dev.data::catalogue.fn_genT1NC_CatalSCRS` functions, respectively.
 
 #### Producing the T1 + T2 SCRS catalogue for all species
 ```
