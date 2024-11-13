@@ -19,6 +19,8 @@ Nevertheless, the script (not exported with the library) that updates the refere
   
 ## Reference data artifacts exported by the library
 
+Each of the following artifacts (hereby referenced by their object name) represents the content (as an R `data.table`) of a reference data table included in one of the ICCAT databases (generally, \code{\link{DATABASE_T1}}) with standardized column names.
+
 + `REF_DATA_SOURCES`
 + `REF_DATA_SOURCE_CONTENTS`
 + `REF_TIME_PERIODS`
@@ -70,6 +72,15 @@ library(devtools)
 
 install_github("stats-ICCAT/iccat.pub.data")
 ```
+
+# Updating the reference data
+
+This repository also includes a script (`data-raw\initialize_reference_data.R`) which takes care - when explicitly executed - of extracting reference data from the standard ICCAT databases and update the exported [reference data objects]().
+The script is **not** exported with the library, requires loading the `iccat.dev.base` library, and can be run only by users that have read access to the ICCAT databases.
+
+This script needs to be extended every time a new reference data is added to the list, and the `R\data.R` script should then updated accordingly, to include the new object to be exported, and describe its content.
+
+Updates to the reference data shall be performed *before* building the library, otherwise the updated artifacts will not be included in the package.
 
 # Building the library
 
