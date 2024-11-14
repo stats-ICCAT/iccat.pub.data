@@ -52,7 +52,7 @@ Each of the following artifacts (hereby referenced by their object name) represe
 
 Each `REF_xyz` object should be properly described within the [`R\data.R`](https://github.com/stats-ICCAT/iccat.pub.data/blob/main/R/data.R) file and explicitly exported to be visible to the library consumers.
 
-E.g.,: 
+E.g.: 
 
 ![image](https://github.com/user-attachments/assets/b07e8a37-1e28-4da4-bfae-e83cb46274f8)
 
@@ -81,7 +81,7 @@ install_github("stats-ICCAT/iccat.pub.data")
 
 # Updating the reference data
 
-This repository also includes a script ([`data-raw\initialize_reference_data.R`](https://github.com/stats-ICCAT/iccat.pub.data/blob/main/data-raw/initialize_reference_data.R) which takes care - when explicitly executed - of extracting reference data from the standard ICCAT databases and update the exported [reference data objects](#reference_data).
+This repository also includes a script ([`data-raw\initialize_reference_data.R`](https://github.com/stats-ICCAT/iccat.pub.data/blob/main/data-raw/initialize_reference_data.R)) which takes care - when explicitly executed - of extracting reference data from the standard ICCAT databases and update the exported [reference data objects](#reference_data).
 The script is **not** exported with the library, requires loading the `iccat.dev.base` library, and can be run only by users that have read access to the ICCAT databases.
 
 This script needs to be extended every time a new reference data is added to the list, and the [`R\data.R`](https://github.com/stats-ICCAT/iccat.pub.data/blob/main/R/data.R) script should then be updated accordingly, to include the new object to be exported, and describe its content.
