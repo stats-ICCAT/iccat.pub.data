@@ -8,10 +8,10 @@ Nevertheless, the script (not exported with the library) that updates the refere
 
 ## Artifacts that can be manipulated using the dataset-specific functions provided by the library
 
-1) T1NC - Task1 nominal catches
+1) Task1 nominal catches
   + The library provides a function that can summarize (in _wide_ tabular format) the original tabular T1NC data as retrieved using the [iccat.dev.data](https://github.com/stats-ICCAT/iccat.dev.data) library.
 
-2) T1 + T2 - SCRS catalogue 
+2) SCRS catalogue 
   + The library provides functions to **build** the SCRS catalogue using fishery ranks and base catalogue data as retrieved using the [iccat.dev.data](https://github.com/stats-ICCAT/iccat.dev.data) library, as well as a utility method to split the final output in multiple tables
   
 3) Species' stock data and metadata
