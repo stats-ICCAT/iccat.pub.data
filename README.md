@@ -63,7 +63,7 @@ E.g.:
 + `dplyr`
 
 ### Installation
-```
+```R
 install.packages(c("data.table", "dplyr", "stringr"))
 ```
 
@@ -73,7 +73,7 @@ install.packages(c("data.table", "dplyr", "stringr"))
 This dependency is only required if we need to update the reference data. In this case, please ensure to follow the steps for the installation of all internal / external requirements for the `iccat.dev.data` library as available [here](https://github.com/stats-ICCAT/iccat.dev.data/?tab=readme-ov-file#external-dependencies-cran-).
 
 ### Installation (straight from GitHub)
-```
+```R
 library(devtools)
 
 install_github("stats-ICCAT/iccat.pub.data")
@@ -104,7 +104,7 @@ or by executing the following statement:
 
 For the examples to work, the following statement should be executed only once per session:
 
-```
+```R
 library(iccat.pub.data)
 ```
 
@@ -113,22 +113,22 @@ library(iccat.pub.data)
 > To run these examples we assume that the `T1NC` object contains all T1NC data as retrieved using the `iccat.dev.data::t1nc` function.
 
 #### Producing a T1NC data summary by species, fleet, and gear
-```
+```R
 # T1NC = t1nc() # Requires access to the iccat.dev.data library
 
 T1NC_summary = t1nc.summarise(T1NC, by_species = TRUE, by_gear = TRUE, by_stock = FALSE, by_catch_type = FALSE)
 ```
-```
+```R
 > View(T1NC_summary$grouped)
 ```
 ![image](https://github.com/user-attachments/assets/469dc26d-50f5-4077-b457-a880d2b1c722)
 #### Producing a T1NC data summary for Albacore tuna by stock and fleet only, including catch ranks (absolute and cumulative) for each stratum since 1994 (included) 
-```
+```R
 # T1NC = t1nc() # Requires access to the iccat.dev.data library
 
 T1NC_summary_ALB = t1nc.summarise(T1NC[Species == "ALB"], year_min = 1994, by_species = FALSE, by_gear = FALSE, by_stock = TRUE, by_catch_type = FALSE, rank = TRUE)
 ```
-```
+```R
 > View(T1NC_summary_ALB$grouped)
 ```
 ![image](https://github.com/user-attachments/assets/511fa695-9407-4fed-809d-d81fddd03ae0)
@@ -138,25 +138,25 @@ T1NC_summary_ALB = t1nc.summarise(T1NC[Species == "ALB"], year_min = 1994, by_sp
 > To run these examples we assume that the `FR` and `CA` objects contain fishery ranks and base catalogue data as retrieved using the `iccat.dev.data::catalogue.fn_getT1NC_fisheryRanks` and `iccat.dev.data::catalogue.fn_genT1NC_CatalSCRS` functions, respectively.
 
 #### Producing the T1 + T2 SCRS catalogue for all species from 1950 onwards
-```
+```R
 # FR = catalogue.fn_getT1NC_fisheryRanks() # Requires access to the iccat.dev.data library
 # CA = catalogue.fn_genT1NC_CatalSCRS()    # Requires access to the iccat.dev.data library
 
 CAT = catalogue.compile(FR, CA, year_from = 1950) 
 ```
-```
+```R
 > View(CAT)
 ```
 ![image](https://github.com/user-attachments/assets/542894bf-b258-44a6-807a-aec510b37afc)
 
 #### Producing the T1 + T2 SCRS catalogue for all species from 1994 onwards
-```
+```R
 # FR = catalogue.fn_getT1NC_fisheryRanks(species_codes = "ALB") # Requires access to the iccat.dev.data library
 # CA = catalogue.fn_genT1NC_CatalSCRS(species_codes = "ALB")    # Requires access to the iccat.dev.data library
 
 CAT_ALB_1994 = catalogue.compile(FR, CA, year_from = 1994) 
 ```
-```
+```R
 > View(CAT_ALB_1994)
 ```
 ![image](https://github.com/user-attachments/assets/b798dc27-25e1-47dc-a5d9-91b65e38c67f)
