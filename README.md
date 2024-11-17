@@ -76,7 +76,7 @@ This dependency is only required if we need to update the reference data. In thi
 ```R
 library(devtools)
 
-install_github("stats-ICCAT/iccat.pub.data")
+install_github("stats-ICCAT/iccat.pub.data", dependencies = TRUE)
 ```
 
 # Updating the reference data
