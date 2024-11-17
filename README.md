@@ -71,7 +71,7 @@ install.packages(c("data.table", "dplyr", "stringr"))
 + [iccat.dev.base](https://github.com/stats-ICCAT/iccat.dev.base) [`OPTIONAL`]
 + [iccat.dev.data](https://github.com/stats-ICCAT/iccat.dev.data) [`OPTIONAL`]
 
-This dependency is only required if we need to update the reference data. In this case, please ensure to follow the steps for the installation of all internal / external requirements for the `iccat.dev.data` and `iccat.dev.base` libraries as available [here](https://github.com/stats-ICCAT/iccat.dev.data/?tab=readme-ov-file#external-dependencies-cran-).
+These dependencies are only required if we need to update the reference data. In this case, please ensure to follow the steps for the installation of all internal / external requirements for the `iccat.dev.data` and `iccat.dev.base` libraries as available [here](https://github.com/stats-ICCAT/iccat.dev.data/?tab=readme-ov-file#external-dependencies-cran-).
 
 ### Installation (straight from GitHub)
 ```R
@@ -85,7 +85,6 @@ install_github("stats-ICCAT/iccat.dev.data", dependencies = TRUE, auth_token = G
 ```
 
 # Updating the reference data
-
 This repository also includes a script ([`data-raw\initialize_reference_data.R`](https://github.com/stats-ICCAT/iccat.pub.data/blob/main/data-raw/initialize_reference_data.R)) which takes care - when explicitly executed - of extracting reference data from the standard ICCAT databases and update the exported [reference data objects](#reference_data).
 The script is **not** exported with the library, requires loading the `iccat.dev.base` library, and can be run only by users that have read access to the ICCAT databases.
 
