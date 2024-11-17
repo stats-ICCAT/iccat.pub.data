@@ -68,6 +68,7 @@ install.packages(c("data.table", "dplyr", "stringr"))
 ```
 
 ## Internal dependencies <a name="internal_deps"></a>
++ [iccat.dev.base](https://github.com/stats-ICCAT/iccat.dev.base) [`OPTIONAL`]
 + [iccat.dev.data](https://github.com/stats-ICCAT/iccat.dev.data) [`OPTIONAL`]
 
 This dependency is only required if we need to update the reference data. In this case, please ensure to follow the steps for the installation of all internal / external requirements for the `iccat.dev.data` library as available [here](https://github.com/stats-ICCAT/iccat.dev.data/?tab=readme-ov-file#external-dependencies-cran-).
@@ -76,7 +77,11 @@ This dependency is only required if we need to update the reference data. In thi
 ```R
 library(devtools)
 
-install_github("stats-ICCAT/iccat.pub.data", dependencies = TRUE)
+# To get a GitHub auth token: https://github.com/settings/tokens (ensure that the 'repo' permissions are assigned to the token)
+GITHUB_AUTH_TOKEN = < put your GitHub authentication token here >
+
+install_github("stats-ICCAT/iccat.dev.base", dependencies = TRUE, auth_token = GITHUB_AUTH_TOKEN)
+install_github("stats-ICCAT/iccat.dev.data", dependencies = TRUE, auth_token = GITHUB_AUTH_TOKEN)
 ```
 
 # Updating the reference data
