@@ -95,7 +95,6 @@ install_github("stats-ICCAT/iccat.pub.data", dependencies = FALSE)
 ```
 
 # Building the library
-
 Assuming that all [external](#external_deps) and [internal](#internal_deps) dependencies are already installed in the R environment, and that the `devtools` package and [RTools](https://cran.r-project.org/bin/windows/Rtools/) are both available, the building process can be either started within R studio by selecting the Build > Build Source Package menu entry:
 
 ![image](https://github.com/user-attachments/assets/f209d8d4-568c-4200-bcf2-fb1fa0e1d2ef)
