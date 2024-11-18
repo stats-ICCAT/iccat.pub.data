@@ -82,7 +82,6 @@ This script needs to be extended every time a new reference data is added to the
 Updates to the reference data shall be performed *before* building the library, otherwise the updated artifacts will not be included in the package.
 
 # Installing the library from GitHub
-
 1) Ensure that all dependencies (both [external](#external_deps) and [internal](#internal_deps)) are installed
 2) Ensure that the `devtools` package is installed, if not, execute the following:
 ```R
