@@ -73,17 +73,6 @@ install.packages(c("data.table", "dplyr", "stringr"))
 
 These dependencies are only required if we need to update the reference data. In this case, please ensure to follow the steps for the installation of all internal / external requirements for the `iccat.dev.data` and `iccat.dev.base` libraries as available [here](https://github.com/stats-ICCAT/iccat.dev.data/?tab=readme-ov-file#external-dependencies-cran-).
 
-### Installation (straight from GitHub)
-```R
-library(devtools)
-
-# To get a GitHub auth token: https://github.com/settings/tokens (ensure that the 'repo' permissions are assigned to the token)
-GITHUB_AUTH_TOKEN = < put your GitHub authentication token here >
-
-install_github("stats-ICCAT/iccat.dev.base", dependencies = TRUE, auth_token = GITHUB_AUTH_TOKEN)
-install_github("stats-ICCAT/iccat.dev.data", dependencies = TRUE, auth_token = GITHUB_AUTH_TOKEN)
-```
-
 # Updating the reference data
 This repository also includes a script ([`data-raw\initialize_reference_data.R`](https://github.com/stats-ICCAT/iccat.pub.data/blob/main/data-raw/initialize_reference_data.R)) which takes care - when explicitly executed - of extracting reference data from the standard ICCAT databases and update the exported [reference data objects](#reference_data).
 The script is **not** exported with the library, requires loading the `iccat.dev.base` library, and can be run only by users that have read access to the ICCAT databases.
@@ -91,6 +80,20 @@ The script is **not** exported with the library, requires loading the `iccat.dev
 This script needs to be extended every time a new reference data is added to the list, and the [`R\data.R`](https://github.com/stats-ICCAT/iccat.pub.data/blob/main/R/data.R) script should then be updated accordingly, to include the new object to be exported, and describe its content.
 
 Updates to the reference data shall be performed *before* building the library, otherwise the updated artifacts will not be included in the package.
+
+# Installing the library from GitHub
+
+1) Ensure that all dependencies (both [external](#external_deps) and [internal](#internal_deps)) are installed
+2) Ensure that the `devtools` package is installed, if not, execute the following:
+```R
+install.packages("devtools")
+```
+3) Once `devtools` is available, execute the following:
+```R
+library(devtools)
+
+install_github("stats-ICCAT/iccat.pub.data", dependencies = FALSE)
+```
 
 # Building the library
 
